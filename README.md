@@ -36,9 +36,9 @@ The configuration options for this plugin are currently a small subset of the [s
 
 | Option           | Default   | Description                                                                                                                                                                                                                                                                |
 | ---------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`            |           | **[required]** Your application's API key. This key identifies your application for purposes of quota management.                                                                                                                                                                                                                                        |
-| `latitude`       |           | **[required]** The latitude you want to use as the center of the map.                                                                                                                                            |
-| `longitude`       |           | **[required]** The longitude you want to use as the center of the map.                                                                                                                                             |
+| `key`            |           | **[required]** Your application's API key. This key identifies your application for purposes of quota management.           |
+| `latitude`       |           | **[required]** The latitude you want to use as the center of the map.                                                       |
+| `longitude`      |           | **[required]** The longitude you want to use as the center of the map.                                                     |
 
 ### Example Configuration
 
@@ -59,24 +59,16 @@ module.exports = {
 
 ## Querying Google Maps geocoding information
 
-Once the plugin is configured, one new query is available in GraphQL: `allLocationData`.
+Once the plugin is configured, one new query is available in GraphQL: `staticMap`.
 
 Here’s an example query to load the latitude and longitude for Boston, MA:
 
 ```gql
 query LocationQuery {
-  allLocationData {
-    edges {
-      node {
-        results {
-          geometry {
-            location_type
-            location {
-              lat
-              lng
-            }
-          }
-        }
+  staticMap {
+    childFile {
+      childImageSharp {
+        ...
       }
     }
   }
@@ -84,7 +76,3 @@ query LocationQuery {
 ```
 
 See the [Google Maps Static API docs](https://developers.google.com/maps/documentation/maps-static/intro) or the GraphiQL UI for info on all returned fields.
-
-## Acknowledgements
-
-Huge thank you to [Matt Dionis' Gatsby Plugin for Google Maps Geocode API](https://github.com/Matt-Dionis/gatsby-source-googlemaps-geocoding) as I based a lot of this structure off of his plugin.
