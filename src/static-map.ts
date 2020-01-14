@@ -25,6 +25,7 @@ interface MapOptions {
     paths?: Array<Path> | string;
     styles?: Array<Style> | string;
     visible?: Array<String> | string;
+    hasSecret?: boolean;
 }
 
 class StaticMap {
@@ -87,6 +88,7 @@ class StaticMap {
         this._options.styles = this.parseOption(newOptions.styles, Style);
         this._options.visible = this.parseOption(newOptions.visible);
 
+        this._options.hasSecret = !!newOptions.secret;
         this._options.zoom = newOptions.zoom || "14";
         this._options.format = newOptions.format || "png";
         this._options.center = newOptions.center;
@@ -97,6 +99,7 @@ class StaticMap {
 
     private getJSON() {
         const options = {
+            hasSecret: this._options.hasSecret,
             size: this._options.size,
             format: this._options.format,
             scale: this._options.scale,

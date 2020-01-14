@@ -30,6 +30,7 @@ abstract class CacheFile {
     }
 
     protected async getPath(store: any, url: string, ext: string) {
+        console.log(url);
         if (this._path) return { path: this._path, hash: this._hash };
 
         if (!this._isCached) {

@@ -22,6 +22,8 @@ class ImageFile extends CacheFile {
             this.parseArrayParams(markersHolder)
         );
         this._extension = `.${params.format}`;
+        this._useSignature = params.hasSecret;
+        this._useClient = !!params.client;
     }
 
     public async getHref(

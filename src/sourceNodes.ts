@@ -41,7 +41,8 @@ async function sourceNodes(
     };
 
     const { absolutePath, center, hash } = await Map.getFilePath(
-        configOptions.key
+        configOptions.key,
+        configOptions.secret
     );
     const id = createNodeId(`google-maps-static-${hash}`);
 
