@@ -30,11 +30,21 @@ declare module "gatsby-source-googlemaps-static" {
         readonly size?: string;
         readonly label?: string;
     }
+    export interface RuleOptions {
+        readonly hue?: string;
+        readonly lightness?: string;
+        readonly saturation?: string;
+        readonly gamma?: string;
+        readonly invert_lightness?: boolean;
+        readonly visibility?: string;
+        readonly color?: string;
+        readonly weight?: string;
+    }
 
     export interface StyleOptions {
-        readonly location: string;
-        readonly color?: string;
-        readonly size?: string;
-        readonly label?: string;
+        readonly feature?: string;
+        readonly element?: string;
+        readonly rules: string | RuleOptions;
     }
 }
+

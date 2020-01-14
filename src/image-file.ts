@@ -29,6 +29,11 @@ class ImageFile extends CacheFile {
             delete params.visible;
         }
 
+        if (params.style) {
+            appendStr += this.parseArrayParams(params.style, "style");
+            delete params.style;
+        }
+
         this._params = this.generateParams(params, "", appendStr);
         this._extension = `.${params.format}`;
         this._useClient = !!params.client;
