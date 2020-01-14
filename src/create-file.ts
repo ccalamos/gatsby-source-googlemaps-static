@@ -22,7 +22,7 @@ export default async (data: Buffer, store: any, ext: string, id: string) => {
 
     const dir: string = path.join(pluginCacheDir, hash);
 
-    const filename = createFilePath(dir, "google-maps-static", `.${ext}`);
+    const filename = createFilePath(dir, "google-maps-static", `${ext}`);
 
     await fs.writeFile(filename, data);
 

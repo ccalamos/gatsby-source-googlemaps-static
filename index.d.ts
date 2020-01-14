@@ -20,6 +20,8 @@ declare module "gatsby-source-googlemaps-static" {
         readonly color?: string;
         readonly size?: string;
         readonly label?: string;
+        readonly icon?: string;
+        readonly anchor?: string;
     }
 
     export interface PathOptions {

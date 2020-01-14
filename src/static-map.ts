@@ -31,7 +31,7 @@ class StaticMap {
     // Private Helpers
     private _file: ImageFile;
     private _store: any;
-    private _options: MapOptions;
+    private _options: MapOptions | any = {};
     private _isImplicit: boolean = false;
 
     public constructor(options: ConfigOptions, cache: any, store: any) {
@@ -48,12 +48,16 @@ class StaticMap {
     ) {
         const keyOrClient = this._options.client ? this._options.client : key;
 
-        const { path, hash } = await this._file.getHref(this._store, keyOrClient, secret);
+        const { path, hash } = await this._file.getHref(
+            this._store,
+            keyOrClient,
+            secret
+        );
 
         return {
             absolutePath: path,
-            center: (this._isImplicit ? "Implicit Map" : this._options.center);
-            hash
+            center: this._isImplicit ? "Implicit Map" : this._options.center,
+            hash,
         };
     }
 
@@ -71,6 +75,7 @@ class StaticMap {
     }
 
     private set options(newOptions: ConfigOptions) {
+        this._options = {};
         this._options.size = newOptions.size
             ? newOptions.size.includes("x")
                 ? newOptions.size
@@ -146,7 +151,7 @@ class StaticMap {
             return types;
         }
 
-        return types.map(type => type.urlParams());
+        return types.map(type => type.urlParams);
     }
 }
 

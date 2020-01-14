@@ -7,12 +7,21 @@ class ImageFile extends CacheFile {
     readonly baseURL: string = "https://maps.googleapis.com/maps/api/staticmap";
 
     private _params: string;
+    private _extension: string = ".png";
     private _useSignature: boolean = false;
     private _useClient: boolean = false;
 
     public constructor(cache: any, params: any) {
         super(cache, queryString.stringify(params));
-        this._params = this.generateParams(params);
+
+        const markersHolder = [...params.markers];
+        delete params.markers;
+        this._params = this.generateParams(
+            params,
+            "",
+            this.parseArrayParams(markersHolder)
+        );
+        this._extension = `.${params.format}`;
     }
 
     public async getHref(
@@ -20,7 +29,11 @@ class ImageFile extends CacheFile {
         keyOrClient: string,
         secret: string | undefined
     ) {
-        return await this.getPath(store, this.getUrl(keyOrClient, secret));
+        return await this.getPath(
+            store,
+            this.getUrl(keyOrClient, secret),
+            this._extension
+        );
     }
 
     private getUrl(keyOrClient: string, secret: string | undefined) {
@@ -53,6 +66,17 @@ class ImageFile extends CacheFile {
             queryString.stringify(options) +
             (!!appendStr ? "&" + appendStr : "")
         );
+    }
+
+    private parseArrayParams(options: Array<any>) {
+        let str = "";
+        options.map((option, idx) => {
+            str += `markers=${option}`;
+            if (idx !== options.length - 1) {
+                str += "&";
+            }
+        });
+        return str;
     }
 }
 

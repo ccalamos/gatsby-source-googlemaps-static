@@ -24,7 +24,6 @@ async function sourceNodes(
 
         await createNode({ ...fileNode }, { name: `gatsby-source-filesystem` });
 
-
         const nodeContent = JSON.stringify(datum);
         const nodeMeta = {
             id: id,

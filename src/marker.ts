@@ -10,12 +10,20 @@ class Marker {
 
     public constructor(options: MarkerOptions) {
         this._location = options.location;
-        this._params = this.encodeOptions(
-            options.location,
-            options.color,
-            options.size,
-            options.label
-        );
+        if (!options.icon) {
+            this._params = this.encodeOptions(
+                options.location,
+                options.color,
+                options.size,
+                options.label
+            );
+        } else {
+            this._params = this.encodeIcon(
+                options.location,
+                options.icon,
+                options.anchor
+            );
+        }
     }
 
     private encodeOptions(
@@ -25,13 +33,40 @@ class Marker {
         label: string | undefined
     ) {
         return (
-            queryString.stringify({
-                size,
-                color,
-                label,
-                "|": null,
-            }) + encodeURIComponent(location)
+            this.generateEncoding("color", color) +
+            this.generateEncoding("size", size) +
+            this.generateEncoding("label", label) +
+            (!color && !size && !label ? "|" : "") +
+            encodeURIComponent(location)
         );
+    }
+
+    private encodeIcon(
+        location: string,
+        icon: string,
+        anchor: string | undefined
+    ) {
+        return (
+            (anchor
+                ? this.generateEncoding("anchor", anchor.replace(/ /g, ""))
+                : "") +
+            `icon:${icon}${encodeURIComponent("|")}` +
+            encodeURIComponent(location)
+        );
+    }
+
+    private generateEncoding(
+        key: string,
+        value: string | undefined,
+        next: boolean = true
+    ) {
+        if (!value) {
+            return "";
+        }
+
+        return `${encodeURIComponent(key)}:${encodeURIComponent(value)}${
+            next ? encodeURIComponent("|") : ""
+        }`;
     }
 
     get urlParams() {

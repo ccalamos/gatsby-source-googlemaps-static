@@ -29,14 +29,15 @@ abstract class CacheFile {
         }
     }
 
-    protected async getPath(store: any, url: string) {
+    protected async getPath(store: any, url: string, ext: string) {
         if (this._path) return { path: this._path, hash: this._hash };
 
         if (!this._isCached) {
             return this.downloadFile(url).then(async response => {
                 const path: string = await this.createFile(
                     response.data,
-                    store
+                    store,
+                    ext
                 );
                 await this.setCache(path);
                 this._path = path;
@@ -46,11 +47,11 @@ abstract class CacheFile {
         }
         const path = await this.fetchCache();
 
-        return { path, hash: this._hash };
+        return { path, hash: this._guid };
     }
 
-    private async createFile(data: Buffer, store: any) {
-        return createFile(data, store, this._type, this._guid);
+    private async createFile(data: Buffer, store: any, ext: string) {
+        return createFile(data, store, ext, this._guid);
     }
 
     private async downloadFile(url: string) {
