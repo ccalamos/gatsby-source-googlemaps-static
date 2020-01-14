@@ -64,10 +64,9 @@ class StaticMap {
 
     private isImplicit() {
         return (
-            !(!!this._options.center && !!this._options.zoom) &&
-            (!!this._options.markers ||
-                !!this._options.visible ||
-                !!this._options.paths)
+            (!this._options.center &&
+                (!!this._options.markers || !!this._options.paths)) ||
+            !!this._options.visible
         );
     }
 
@@ -99,21 +98,20 @@ class StaticMap {
 
     private getJSON() {
         const options = {
+            center: this._options.center,
             hasSecret: this._options.hasSecret,
             size: this._options.size,
             format: this._options.format,
             scale: this._options.scale,
             maptype: this._options.mapType,
             markers: this.mapArray(this._options.markers),
+            visible: this.mapArray(this._options.visible),
             style: this.mapArray(undefined),
             path: this.mapArray(undefined),
         };
 
         if (!this._isImplicit) {
-            options["center"] = this._options.center;
             options["zoom"] = this._options.zoom;
-        } else {
-            options["visible"] = this._options.visible;
         }
 
         return options;
@@ -154,7 +152,13 @@ class StaticMap {
             return types;
         }
 
-        return types.map(type => type.urlParams);
+        return types.map(type => {
+            if (typeof type === "string") {
+                return encodeURIComponent(type);
+            }
+
+            return type.urlParams;
+        });
     }
 }
 

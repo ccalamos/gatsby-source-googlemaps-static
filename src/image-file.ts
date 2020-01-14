@@ -14,15 +14,23 @@ class ImageFile extends CacheFile {
     public constructor(cache: any, params: any) {
         super(cache, queryString.stringify(params));
 
-        const markersHolder = [...params.markers];
-        delete params.markers;
-        this._params = this.generateParams(
-            params,
-            "",
-            this.parseArrayParams(markersHolder)
-        );
-        this._extension = `.${params.format}`;
         this._useSignature = params.hasSecret;
+        delete params.hasSecret;
+
+        let appendStr = "";
+
+        if (params.markers) {
+            appendStr += this.parseArrayParams(params.markers, "markers");
+            delete params.markers;
+        }
+
+        if (params.visible) {
+            appendStr += this.parseArrayParams(params.visible, "visible");
+            delete params.visible;
+        }
+
+        this._params = this.generateParams(params, "", appendStr);
+        this._extension = `.${params.format}`;
         this._useClient = !!params.client;
     }
 
@@ -60,20 +68,42 @@ class ImageFile extends CacheFile {
 
     private generateParams(
         options: object,
-        prependStr: string = "",
-        appendStr: string = ""
+        prependStr: Array<string> | string = "",
+        appendStr: Array<string> | string = ""
     ) {
+        let pStr, aStr;
+
+        if (typeof prependStr === "string") {
+            pStr = prependStr;
+        } else {
+            prependStr.forEach((str: string) => {
+                pStr += `&${str}`;
+            });
+        }
+
+        if (typeof appendStr === "string") {
+            aStr = appendStr;
+        } else {
+            appendStr.forEach((str: string) => {
+                aStr += `&${str}`;
+            });
+        }
+
         return (
-            (!!prependStr ? prependStr + "&" : "") +
+            (!!pStr ? pStr + "&" : "") +
             queryString.stringify(options) +
-            (!!appendStr ? "&" + appendStr : "")
+            (!!aStr ? "&" + aStr : "")
         );
     }
 
-    private parseArrayParams(options: Array<any>) {
+    private parseArrayParams(options: string | Array<any>, type: string) {
+        if (typeof options === "string") {
+            return `${type}=${options}`;
+        }
+
         let str = "";
         options.map((option, idx) => {
-            str += `markers=${option}`;
+            str += `${type}=${option}`;
             if (idx !== options.length - 1) {
                 str += "&";
             }
