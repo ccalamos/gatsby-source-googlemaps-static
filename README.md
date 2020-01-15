@@ -84,7 +84,16 @@ module.exports = {
           {
             feature: `FEATURE`,
             element: `ELEMENT`,
-            rules:
+            rules: {
+              hue: `HUE`,
+              lightness: `LIGHTNESS`,
+              saturation: `SATURATION`,
+              gamma: `GAMMA`,
+              invert_lightness: true || false,
+              visibility: `VISIBILITY`,
+              color: `COLOR`,
+              weight: `WEIGHT`,
+            }
           },
         ] || `PREFORMATTED_STYLES_URI_STRING`,
         markers: [

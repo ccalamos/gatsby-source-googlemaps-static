@@ -25,16 +25,25 @@ class ImageFile extends CacheFile {
         }
 
         if (params.visible) {
+            if (!!appendStr) {
+                appendStr += "&";
+            }
             appendStr += this.parseArrayParams(params.visible, "visible");
             delete params.visible;
         }
 
         if (params.style) {
+            if (!!appendStr) {
+                appendStr += "&";
+            }
             appendStr += this.parseArrayParams(params.style, "style");
             delete params.style;
         }
 
         if (params.path) {
+            if (!!appendStr) {
+                appendStr += "&";
+            }
             appendStr += this.parseArrayParams(params.path, "path");
             delete params.path;
         }
