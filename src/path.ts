@@ -85,10 +85,6 @@ class Path {
                     }
                 });
 
-                console.log(
-                    `origin=${origin}&destination=${destination}&waypoints=${wayPoints}`
-                );
-
                 return `origin=${origin}&destination=${destination}&waypoints=${wayPoints}`;
         }
     }
