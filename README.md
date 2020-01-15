@@ -1,4 +1,4 @@
-<div align="center" style="margin-bottom:2em;">
+<div align="center">
 <h1>
   Gatsby Source Google Maps Static Plugin
   <br>
@@ -6,6 +6,7 @@
     <b>GSGS</b> (gatsby-source-googlemaps-static)
   </span>
 </h1>
+<br>
 
 <div>
 <img alt="gatsby" src="https://img.shields.io/badge/Gatsby.js-Source%20Plugin-blueviolet?style=for-the-badge&logo=gatsby&labelColor=blueviolet&color=555">
@@ -17,6 +18,7 @@
 <img alt="typescript" src="https://camo.githubusercontent.com/92e9f7b1209bab9e3e9cd8cdf62f072a624da461/68747470733a2f2f666c61742e62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565">
 <img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-green?style=flat-square">
 </div>
+<br>
 
 This source plugin for Gatsby will make location information from [Google Maps](https://cloud.google.com/maps-platform/) available in GraphQL queries and provide a link to open that map on [Google Maps](https://developers.google.com/maps/documentation/urls/guide#top_of_page). **GSGS** (gatsby-source-googlemaps-static) plugin will also cache the image response and only make a call to the API when the cache is invalid or empty. The cache is invalidated when you change any of the values below *(Omitting the key and secret)*.
 
