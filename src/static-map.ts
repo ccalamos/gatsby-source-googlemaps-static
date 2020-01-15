@@ -107,7 +107,7 @@ class StaticMap {
             markers: this.mapArray(this._options.markers),
             visible: this.mapArray(this._options.visible),
             style: this.mapArray(this._options.styles),
-            path: this.mapArray(undefined),
+            path: this.mapArray(this._options.paths),
         };
 
         if (!this._isImplicit) {

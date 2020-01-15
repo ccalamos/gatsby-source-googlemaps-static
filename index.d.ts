@@ -25,10 +25,11 @@ declare module "gatsby-source-googlemaps-static" {
     }
 
     export interface PathOptions {
-        readonly location: string;
+        readonly weight?: string;
         readonly color?: string;
-        readonly size?: string;
-        readonly label?: string;
+        readonly fillColor?: string;
+        readonly geoDesic?: boolean;
+        readonly points: string | Array<string>;
     }
     export interface RuleOptions {
         readonly hue?: string;
