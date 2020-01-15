@@ -72,6 +72,10 @@ class Marker {
     get urlParams() {
         return this._params;
     }
+
+    get wayPoint() {
+        return this._location;
+    }
 }
 
 export default Marker;

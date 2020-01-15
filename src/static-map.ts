@@ -31,6 +31,8 @@ interface MapOptions {
 class StaticMap {
     // Private Helpers
     private _file: ImageFile;
+    private _url: string;
+    private _query: string | undefined;
     private _store: any;
     private _options: MapOptions | any = {};
     private _isImplicit: boolean = false;
@@ -41,6 +43,9 @@ class StaticMap {
         this._isImplicit = this.isImplicit();
 
         this.file = cache;
+
+        this._query = options.query;
+        this.generateMapUrl();
     }
 
     public async getFilePath(
@@ -60,6 +65,10 @@ class StaticMap {
             center: this._isImplicit ? "Implicit Map" : this._options.center,
             hash,
         };
+    }
+
+    get url() {
+        return this._url;
     }
 
     private isImplicit() {
@@ -159,6 +168,78 @@ class StaticMap {
 
             return type.urlParams;
         });
+    }
+
+    private generateMapUrl() {
+        const baseUrl = "https://www.google.com/maps/";
+        let url = baseUrl;
+
+        if (this._isImplicit) {
+            url = `${url}dir/?api=1&${this.parseWayPoints()}`;
+        } else {
+            if (this.isCords()) {
+                url = `${url}@?api=1&map_action=map&center=${encodeURIComponent(
+                    this._options.center
+                )}`;
+            } else {
+                url = `${url}search/?api=1&query=${encodeURIComponent(
+                    this._query || this._options.center
+                )}`;
+            }
+        }
+
+        this._url = url;
+    }
+
+    private isCords() {
+        return (
+            !this._query && RegExp(/^[^a-zA-Z]+$/).test(this._options.center)
+        );
+    }
+
+    private parseWayPoints() {
+        if (this._options.paths) {
+            return this._options.paths[0]?.wayPoints;
+        }
+
+        const points = this.getWayPoints();
+        let origin,
+            destination,
+            wayPoints = "";
+
+        if (points.length === 1) {
+            return `origin=${points[0].wayPoint ||
+                points[0]}&destination=${points[0].wayPoint || points[0]}`;
+        } else if (points.length === 2) {
+            return `origin=${points[0].wayPoint ||
+                points[0]}&destination=${points[1].wayPoint || points[1]}`;
+        }
+
+        points.forEach((point, idx) => {
+            if (idx === 0) {
+                origin = encodeURIComponent(point.wayPoint || point);
+            } else if (idx === points.length - 1) {
+                destination = encodeURIComponent(point.wayPoint || point);
+            } else {
+                wayPoints += `${encodeURIComponent("|")}${encodeURIComponent(
+                    point.wayPoint || point
+                )}`;
+            }
+        });
+
+        return `origin=${origin}&destination=${destination}&waypoints=${wayPoints}`;
+    }
+
+    private getWayPoints() {
+        if (this._options.markers) {
+            return [...this._options.markers];
+        }
+
+        if (this._options.visible) {
+            return [...this._options.visible];
+        }
+
+        return;
     }
 }
 

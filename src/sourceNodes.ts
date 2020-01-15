@@ -46,7 +46,7 @@ async function sourceNodes(
     );
     const id = createNodeId(`google-maps-static-${hash}`);
 
-    return processNodes({ absolutePath, center, hash, id });
+    return processNodes({ absolutePath, center, hash, id, mapUrl: Map.url });
 }
 
 export default sourceNodes;

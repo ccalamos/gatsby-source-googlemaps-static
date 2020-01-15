@@ -13,6 +13,7 @@ declare module "gatsby-source-googlemaps-static" {
         readonly paths?: Array<Object> | string;
         readonly styles?: Array<Object> | string;
         readonly visible?: Array<String> | string;
+        readonly query?: string;
     }
 
     export interface MarkerOptions {

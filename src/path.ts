@@ -64,6 +64,34 @@ class Path {
     get urlParams() {
         return this.generateParams();
     }
+
+    get wayPoints() {
+        switch (this._points.length) {
+            case 1:
+                return `origin=${this._points[0]}&destination=${this._points[0]}`;
+            case 2:
+                return `origin=${this._points[0]}&destination=${this._points[1]}`;
+            default:
+                let origin,
+                    destination,
+                    wayPoints = "";
+                this._points.forEach((point, idx) => {
+                    if (idx === 0) {
+                        origin = point;
+                    } else if (idx === this._points.length - 1) {
+                        destination = point;
+                    } else {
+                        wayPoints += `${encodeURIComponent("|")}${point}`;
+                    }
+                });
+
+                console.log(
+                    `origin=${origin}&destination=${destination}&waypoints=${wayPoints}`
+                );
+
+                return `origin=${origin}&destination=${destination}&waypoints=${wayPoints}`;
+        }
+    }
 }
 
 export default Path;
