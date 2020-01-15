@@ -7,9 +7,10 @@
   </span>
 </h1>
 
-<div style="margin-bottom:1em;">
+<div>
 <img alt="gatsby" src="https://img.shields.io/badge/Gatsby.js-Source%20Plugin-blueviolet?style=for-the-badge&logo=gatsby&labelColor=blueviolet&color=555">
 </div>
+<br>
 
 <img alt="npm" src="https://img.shields.io/npm/v/gatsby-source-googlemaps-static?style=flat-square">
 <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ccalamos/gatsby-source-googlemaps-static?label=updated&style=flat-square">
