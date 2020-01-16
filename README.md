@@ -1,26 +1,27 @@
-<div align="center">
-  <h1>
-    Gatsby Source Google Maps Static Plugin
-    <br>
-    <span style="font-size:small">
-      <b>GSGS</b> (gatsby-source-googlemaps-static)
-    </span>
-  </h1>
-
-  <br>
-
-  <div>
-    <img alt="gatsby" src="https://img.shields.io/badge/Gatsby.js-Source%20Plugin-blueviolet?style=for-the-badge&logo=gatsby&labelColor=blueviolet&color=555">
+<div>
+  <div style="text-align:center;">
+    <h1 style="text-align:center;">
+      Gatsby Source Google Maps Static Plugin
+      <br>
+      <span style="font-size:small">
+        <b>GSGS</b> (gatsby-source-googlemaps-static)
+      </span>
+    </h1>
   </div>
 
   <br>
 
-  <img alt="npm" src="https://img.shields.io/npm/v/gatsby-source-googlemaps-static?style=flat-square">
-  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ccalamos/gatsby-source-googlemaps-static?label=updated&style=flat-square">
-  <img alt="typescript" src="https://camo.githubusercontent.com/92e9f7b1209bab9e3e9cd8cdf62f072a624da461/68747470733a2f2f666c61742e62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565">
-  <img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-green?style=flat-square">
-</div>
-<div align="left">
+  <div style="text-align:center;">
+    <img alt="gatsby" src="https://img.shields.io/badge/Gatsby.js-Source%20Plugin-blueviolet?style=for-the-badge&logo=gatsby&labelColor=blueviolet&color=555">
+  </div>
+
+  <br>
+  <div style="text-align:center;">
+    <img alt="npm" src="https://img.shields.io/npm/v/gatsby-source-googlemaps-static?style=flat-square">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ccalamos/gatsby-source-googlemaps-static?label=updated&style=flat-square">
+    <img alt="typescript" src="https://camo.githubusercontent.com/92e9f7b1209bab9e3e9cd8cdf62f072a624da461/68747470733a2f2f666c61742e62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565">
+    <img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-green?style=flat-square">
+  </div>
 </div>
 
 <br>
