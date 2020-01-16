@@ -1,7 +1,7 @@
 {
   "name": "gatsby-source-googlemaps-static",
   "description": "Gatsby source plugin for Google Maps Static API",
-  "version": "1.0.6",
+  "version": "1.0.5",
   "author": "Cole Calamos <cole@colejcalamos.com>",
   "main": "gatsby-node.js",
   "bugs": {
