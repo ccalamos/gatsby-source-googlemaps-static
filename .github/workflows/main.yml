@@ -1,4 +1,4 @@
-name: Node CI
+name: Publish
 
 on: [push, pull_request] # Run on Push and Pull Requests
 
@@ -7,21 +7,15 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [10.x] # Only run the 10.x build
-
     steps:
     - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn
-    - name: yarn install, build
-      run: |
-        yarn
-        yarn build
-    - run: yarn publish --access public
-    env:
-      NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+    - name: Install dependencies
+      run: yarn install
+    - name: Build
+      run: yarn build
+    - name: Create .npmrc
+      run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - name: Publish
+      run: yarn publish --new-version ${GITHUB_REF#"refs/tags/"} --no-git-tag-version
