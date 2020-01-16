@@ -41,7 +41,7 @@
   },
   "scripts": {
     "build": "babel src --out-dir dist --ignore **/__tests__ --extensions '.ts'",
-    "watch": "babel --watch src --out-dir dist --ignore **/__tests__",
+    "watch": "babel --watch src --out-dir dist --ignore **/__tests__ --extensions '.ts'",
     "format": "prettier --write src/**/*.ts",
     "clean": "rm -rf dist",
     "prepublishOnly": "yarn run build"
