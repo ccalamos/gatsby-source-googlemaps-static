@@ -12,15 +12,25 @@
   <br>
 
   <div style="text-align:center;">
-    <img alt="gatsby" src="https://img.shields.io/badge/Gatsby.js-Source%20Plugin-blueviolet?style=for-the-badge&logo=gatsby&labelColor=blueviolet&color=555">
+    <a href="https://www.gatsbyjs.org/">
+      <img alt="gatsby" src="https://img.shields.io/badge/Gatsby.js-Source%20Plugin-blueviolet?style=for-the-badge&logo=gatsby&labelColor=blueviolet&color=555">
+    </a>
   </div>
 
   <br>
   <div style="text-align:center;">
-    <img alt="npm" src="https://img.shields.io/npm/v/gatsby-source-googlemaps-static?style=flat-square">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ccalamos/gatsby-source-googlemaps-static?label=updated&style=flat-square">
-    <img alt="typescript" src="https://camo.githubusercontent.com/92e9f7b1209bab9e3e9cd8cdf62f072a624da461/68747470733a2f2f666c61742e62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565">
-    <img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-green?style=flat-square">
+    <a href="https://www.npmjs.com/package/gatsby-source-googlemaps-static">
+      <img alt="npm" src="https://img.shields.io/npm/v/gatsby-source-googlemaps-static?style=flat-square">
+    </a>
+    <a href="https://github.com/ccalamos/gatsby-source-googlemaps-static">
+      <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ccalamos/gatsby-source-googlemaps-static?label=updated&style=flat-square">
+    </a>
+    <a href="https://www.typescriptlang.org/">
+      <img alt="typescript" src="https://camo.githubusercontent.com/92e9f7b1209bab9e3e9cd8cdf62f072a624da461/68747470733a2f2f666c61742e62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565">
+    </a>
+    <a href="https://github.com/ccalamos/gatsby-source-googlemaps-static/pulls">
+      <img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-green?style=flat-square">
+    </a>
   </div>
 </div>
 
