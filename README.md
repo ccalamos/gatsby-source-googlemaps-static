@@ -144,6 +144,12 @@ module.exports = {
                 clientID: `GOOGLE_MAPS_STATIC_CLIENT_ID`,
                 secret: `GOOGLE_MAPS_SECRET_FOR_SIGNED_URLS`,
                 query: `GOOGLE_MAPS_URL_QUERY`,
+                nickname: `NICKNAME`,
+                maps: [
+                    {
+                        `ALL_OPTIONS`,
+                    }
+                ],
             },
         },
     ],
@@ -168,6 +174,8 @@ module.exports = {
 | `markers`  |           | Places markers on the return map image.                                                                                                                         | Either a preformatted URI string or an Array of Objects. Please see [Google Maps Static Markers](https://developers.google.com/maps/documentation/maps-static/dev-guide#Markers) for more information about these fields.                                          |
 | `paths`    |           | Places a path or a polygonal area over top of the map.                                                                                                          | Either a preformatted URI string or an Array of Objects. Please see [Google Maps Static API Paths](https://developers.google.com/maps/documentation/maps-static/dev-guide#Paths) for more information about these fields.                                          |
 | `visible`  |           | Ensures that the provided points are visible on the map.                                                                                                        | Either a preformatted URI string or an Array of Strings. This has precedence over zoom level. Please see [Google Maps Static Viewports](https://developers.google.com/maps/documentation/maps-static/dev-guide#Viewports) for more information about these fields. |
+| `nickname`  |           | Used to add a nickname to the map, for ease of use with GraphQL                                                                                                        | This field will default to using the hash ID if not specified. |
+| `maps`  |           | Used to add multiple maps to gatsby.                                                                                                        | This field takes all the same options as the options field, however it will override the options field for that map. |
 
 > ** If provided with both `key` and `clientID`, **GSGS\*\* will prefer to use `clientID`.
 
@@ -300,6 +308,46 @@ module.exports = {
 ```
 
 <br>
+
+_Multiple Maps Example_
+
+```js
+module.exports = {
+    plugins: [
+        {
+            resolve: `gatsby-source-googlemaps-static`,
+            options: {
+                key: process.env.GOOGLE_MAPS_STATIC_API_KEY,
+                styles: [
+                    {
+                        feature: `poi`,
+                        element: `labels`,
+                        rules: {
+                            visibility: `off`,
+                        },
+                    },
+                ],
+                maps: [
+                    {
+                        center: `Chicago, IL`,
+                        query: `Willis Tower`,
+                    },
+                    {
+                        center: `Colorado Springs, CO`,
+                        query: `Garden of the Gods`,
+                    },
+                    {
+                        center: `Miami, FL`,
+                        nickname: `Beach`,
+                    },
+                ],
+            },
+        },
+    ],
+};
+```
+
+<br>
 <br>
 
 ### GraphQl Queries
@@ -330,6 +378,27 @@ query StaticMapQuery {
         mapUrl
     }
 }
+```
+
+<br>
+
+Here's an example of querying the multiple generated files to get one specific by the nickname:
+
+```gql
+query StaticMapQuery {
+  allStaticMap(filter: {nickname: {eq: "Beach"}}) {
+    edges {
+      node {
+        childFile {
+          childImageSharp {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  }
+}
+
 ```
 
 <br>
