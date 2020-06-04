@@ -1,6 +1,9 @@
 name: Publish
 
-on: [push, pull_request] # Run on Push and Pull Requests
+on: 
+  push:
+    branches:
+      - master
 
 jobs:
   build:
