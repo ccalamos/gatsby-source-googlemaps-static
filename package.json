@@ -1,52 +1,52 @@
 {
-  "name": "gatsby-source-googlemaps-static",
-  "description": "Gatsby source plugin for Google Maps Static API",
-  "version": "1.1.1",
-  "author": "Cole Calamos <cole@colejcalamos.com>",
-  "main": "gatsby-node.js",
-  "bugs": {
-    "url": "https://github.com/ccalamos/gatsby-source-googlemaps-static/issues"
-  },
-  "keywords": [
-    "gatsby",
-    "gatsby-plugin",
-    "gatsby-source",
-    "googlemaps",
-    "google",
-    "maps",
-    "static"
-  ],
-  "homepage": "https://github.com/ccalamos/gatsby-source-googlemaps-static#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ccalamos/gatsby-source-googlemaps-static.git"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.1",
-    "@babel/node": "^7.0.0-beta.54",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
-    "@babel/preset-typescript": "^7.8.3",
-    "babel-preset-gatsby-package": "^0.1.2",
-    "prettier": "^1.13.7"
-  },
-  "dependencies": {
-    "@babel/preset-env": "^7.8.3",
-    "axios": "^0.19.1",
-    "fs-extra": "^8.1.0",
-    "gatsby-source-filesystem": "^2.1.46",
-    "query-string": "^6.9.0"
-  },
-  "scripts": {
-    "build": "babel src --out-dir dist --ignore **/__tests__ --extensions '.ts'",
-    "watch": "babel --watch src --out-dir dist --ignore **/__tests__ --extensions '.ts'",
-    "format": "prettier --write src/**/*.ts",
-    "clean": "rm -rf dist",
-    "prepublishOnly": "yarn run build"
-  },
-  "peerDependencies": {
-    "gatsby": ">2.0.0-alpha"
-  }
+    "name": "gatsby-source-googlemaps-static",
+    "description": "Gatsby source plugin for Google Maps Static API",
+    "version": "1.1.2",
+    "author": "Cole Calamos <cole@colejcalamos.com>",
+    "main": "gatsby-node.js",
+    "bugs": {
+        "url": "https://github.com/ccalamos/gatsby-source-googlemaps-static/issues"
+    },
+    "keywords": [
+        "gatsby",
+        "gatsby-plugin",
+        "gatsby-source",
+        "googlemaps",
+        "google",
+        "maps",
+        "static"
+    ],
+    "homepage": "https://github.com/ccalamos/gatsby-source-googlemaps-static#readme",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ccalamos/gatsby-source-googlemaps-static.git"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "@babel/cli": "^7.0.0",
+        "@babel/core": "^7.0.1",
+        "@babel/node": "^7.0.0-beta.54",
+        "@babel/plugin-proposal-class-properties": "^7.8.3",
+        "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
+        "@babel/preset-env": "^7.9.6",
+        "@babel/preset-typescript": "^7.8.3",
+        "babel-preset-gatsby-package": "^0.1.2",
+        "prettier": "^1.13.7"
+    },
+    "dependencies": {
+        "axios": "^0.19.1",
+        "fs-extra": "^8.1.0",
+        "gatsby-source-filesystem": "^2.1.46",
+        "query-string": "^6.9.0"
+    },
+    "scripts": {
+        "build": "babel src --out-dir dist --ignore **/__tests__ --extensions '.ts'",
+        "watch": "babel --watch src --out-dir dist --ignore **/__tests__ --extensions '.ts'",
+        "format": "prettier --write src/**/*.ts",
+        "clean": "rm -rf dist",
+        "prepublishOnly": "yarn run build"
+    },
+    "peerDependencies": {
+        "gatsby": "^2.2.0"
+    }
 }

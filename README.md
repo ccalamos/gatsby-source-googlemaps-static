@@ -361,7 +361,9 @@ query StaticMapQuery {
     staticMap {
         childFile {
             childImageSharp {
-                ...GatsbyImageSharpFluid
+                fluid { # or fixed
+                    ...GatsbyImageSharpFluid
+                }
             }
         }
     }
@@ -391,7 +393,9 @@ query StaticMapQuery {
       node {
         childFile {
           childImageSharp {
-            ...GatsbyImageSharpFluid
+              fluid { # or fixed
+                ...GatsbyImageSharpFluid
+              }
           }
         }
       }
