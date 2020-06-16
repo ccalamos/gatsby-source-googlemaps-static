@@ -1,7 +1,7 @@
 {
     "name": "gatsby-source-googlemaps-static",
     "description": "Gatsby source plugin for Google Maps Static API",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "author": "Cole Calamos <cole@colejcalamos.com>",
     "main": "gatsby-node.js",
     "bugs": {
@@ -30,8 +30,13 @@
         "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
         "@babel/preset-env": "^7.9.6",
         "@babel/preset-typescript": "^7.8.3",
+        "@typescript-eslint/eslint-plugin": "^3.3.0",
+        "@typescript-eslint/parser": "^3.3.0",
         "babel-preset-gatsby-package": "^0.1.2",
-        "prettier": "^1.13.7"
+        "eslint": "^7.2.0",
+        "eslint-config-prettier": "^6.11.0",
+        "prettier": "^1.13.7",
+        "typescript": "^3.9.5"
     },
     "dependencies": {
         "axios": "^0.19.1",
@@ -44,6 +49,7 @@
         "watch": "babel --watch src --out-dir dist --ignore **/__tests__ --extensions '.ts'",
         "format": "prettier --write src/**/*.ts",
         "clean": "rm -rf dist",
+        "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
         "prepublishOnly": "yarn run build"
     },
     "peerDependencies": {

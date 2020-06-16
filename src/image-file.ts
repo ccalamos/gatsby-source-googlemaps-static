@@ -7,9 +7,9 @@ class ImageFile extends CacheFile {
     readonly baseURL: string = "https://maps.googleapis.com/maps/api/staticmap";
 
     private _params: string;
-    private _extension: string = ".png";
-    private _useSignature: boolean = false;
-    private _useClient: boolean = false;
+    private _extension = ".png";
+    private _useSignature = false;
+    private _useClient = false;
 
     public constructor(cache: any, params: any) {
         super(cache, queryString.stringify(params));
@@ -25,7 +25,7 @@ class ImageFile extends CacheFile {
         }
 
         if (params.visible) {
-            if (!!appendStr) {
+            if (appendStr) {
                 appendStr += "&";
             }
             appendStr += this.parseArrayParams(params.visible, "visible");
@@ -33,7 +33,7 @@ class ImageFile extends CacheFile {
         }
 
         if (params.style) {
-            if (!!appendStr) {
+            if (appendStr) {
                 appendStr += "&";
             }
             appendStr += this.parseArrayParams(params.style, "style");
@@ -41,7 +41,7 @@ class ImageFile extends CacheFile {
         }
 
         if (params.path) {
-            if (!!appendStr) {
+            if (appendStr) {
                 appendStr += "&";
             }
             appendStr += this.parseArrayParams(params.path, "path");
@@ -66,7 +66,7 @@ class ImageFile extends CacheFile {
     }
 
     private getUrl(keyOrClient: string, secret: string | undefined) {
-        let url: string = `${this.baseURL}?${this._params}`;
+        let url = `${this.baseURL}?${this._params}`;
 
         if (this._useClient) {
             url = this.generateParams({ client: keyOrClient }, url);
@@ -109,9 +109,9 @@ class ImageFile extends CacheFile {
         }
 
         return (
-            (!!pStr ? pStr + "&" : "") +
+            (pStr ? pStr + "&" : "") +
             queryString.stringify(options) +
-            (!!aStr ? "&" + aStr : "")
+            (aStr ? "&" + aStr : "")
         );
     }
 
@@ -121,7 +121,7 @@ class ImageFile extends CacheFile {
         }
 
         let str = "";
-        options.map((option, idx) => {
+        options.forEach((option, idx) => {
             str += `${type}=${option}`;
             if (idx !== options.length - 1) {
                 str += "&";

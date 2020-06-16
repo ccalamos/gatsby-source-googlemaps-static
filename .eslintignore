@@ -1,0 +1,4 @@
+node_modules
+dist
+.github
+gatsby-node.js

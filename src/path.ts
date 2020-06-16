@@ -25,7 +25,7 @@ class Path {
     private newOption(
         key: string,
         value: string | boolean | undefined,
-        next: boolean = false
+        next = false
     ) {
         return value
             ? `${key}:${value}${next ? encodeURIComponent("|") : ""}`
@@ -52,7 +52,7 @@ class Path {
     }
 
     private set points(newPoints: Array<string>) {
-        let points = [];
+        const points = [];
 
         newPoints.forEach(point => {
             points.push(encodeURIComponent(point));

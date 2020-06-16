@@ -12,7 +12,7 @@ declare module "gatsby-source-googlemaps-static" {
         readonly markers?: Array<Object> | string;
         readonly paths?: Array<Object> | string;
         readonly styles?: Array<Object> | string;
-        readonly visible?: Array<String> | string;
+        readonly visible?: Array<string> | string;
         readonly query?: string;
     }
 

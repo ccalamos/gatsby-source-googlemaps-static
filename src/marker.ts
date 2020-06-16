@@ -2,8 +2,6 @@
 
 import { MarkerOptions } from "gatsby-source-googlemaps-static";
 
-import queryString from "query-string";
-
 class Marker {
     private _params: string;
     private _location: string;
@@ -58,7 +56,7 @@ class Marker {
     private generateEncoding(
         key: string,
         value: string | undefined,
-        next: boolean = true
+        next = true
     ) {
         if (!value) {
             return "";

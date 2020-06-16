@@ -21,7 +21,7 @@ class Style {
     private newOption(
         key: string,
         value: string | undefined,
-        next: boolean = false
+        next = false
     ) {
         return value
             ? `${key}:${value}${next ? encodeURIComponent("|") : ""}`
@@ -46,11 +46,11 @@ class Style {
     }
 
     private set rules(newRules: RuleOptions) {
-        let rules = [];
+        const rules = [];
 
-        for (let key in newRules) {
-            let isLastIdx = rules.length === Object.keys(newRules).length - 2;
-            let tmpRule = this.newOption(key, newRules[key], !isLastIdx);
+        for (const key in newRules) {
+            const isLastIdx = rules.length === Object.keys(newRules).length - 2;
+            const tmpRule = this.newOption(key, newRules[key], !isLastIdx);
             if (tmpRule) {
                 rules.push(tmpRule);
             }

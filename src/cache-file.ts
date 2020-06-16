@@ -68,7 +68,7 @@ abstract class CacheFile {
         const cached = await this._cache.get(this._cacheId);
         this._isCached = !!cached;
 
-        if (!!cached) {
+        if (cached) {
             this._path = cached;
         }
     }

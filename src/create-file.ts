@@ -1,8 +1,8 @@
 import fs from "fs-extra";
 import path from "path";
 
-const CACHE_DIR: string = `.cache`;
-const FS_PLUGIN_DIR: string = `gatsby-source-googlemaps-static`;
+const CACHE_DIR = `.cache`;
+const FS_PLUGIN_DIR = `gatsby-source-googlemaps-static`;
 
 const createFilePath = (directory: string, filename: string, ext: string) => {
     return path.join(directory, `${filename}${ext}`);
@@ -15,7 +15,7 @@ export default async (data: Buffer, store: any, ext: string, id: string) => {
         FS_PLUGIN_DIR
     );
 
-    const hash: string = `hash-${id}`;
+    const hash = `hash-${id}`;
 
     await fs.ensureDir(pluginCacheDir);
     await fs.ensureDir(path.join(pluginCacheDir, hash));

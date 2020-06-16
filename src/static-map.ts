@@ -24,7 +24,7 @@ interface MapOptions {
     markers?: Array<Marker> | string;
     paths?: Array<Path> | string;
     styles?: Array<Style> | string;
-    visible?: Array<String> | string;
+    visible?: Array<string> | string;
     hasSecret?: boolean;
 }
 
@@ -35,7 +35,7 @@ class StaticMap {
     private _query: string | undefined;
     private _store: any;
     private _options: MapOptions | any = {};
-    private _isImplicit: boolean = false;
+    private _isImplicit = false;
 
     public constructor(options: ConfigOptions, cache: any, store: any) {
         this._store = store;
