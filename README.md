@@ -31,6 +31,8 @@
     <a href="https://github.com/ccalamos/gatsby-source-googlemaps-static/pulls">
       <img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-green?style=flat-square">
     </a>
+    <a href="https://deepscan.io/dashboard#view=project&tid=9777&pid=12370&bid=190780"><img src="https://deepscan.io/api/teams/9777/projects/12370/branches/190780/badge/grade.svg" alt="DeepScan grade"></a>
+    <a href="https://frontend.code-inspector.com/public/project/9641/gatsby-source-googlemaps-static/dashboard"><img src="https://www.code-inspector.com/project/9641/score/svg" alt="Code Inspector grade"/></a>
   </div>
 </div>
 
@@ -174,8 +176,8 @@ module.exports = {
 | `markers`  |           | Places markers on the return map image.                                                                                                                         | Either a preformatted URI string or an Array of Objects. Please see [Google Maps Static Markers](https://developers.google.com/maps/documentation/maps-static/dev-guide#Markers) for more information about these fields.                                          |
 | `paths`    |           | Places a path or a polygonal area over top of the map.                                                                                                          | Either a preformatted URI string or an Array of Objects. Please see [Google Maps Static API Paths](https://developers.google.com/maps/documentation/maps-static/dev-guide#Paths) for more information about these fields.                                          |
 | `visible`  |           | Ensures that the provided points are visible on the map.                                                                                                        | Either a preformatted URI string or an Array of Strings. This has precedence over zoom level. Please see [Google Maps Static Viewports](https://developers.google.com/maps/documentation/maps-static/dev-guide#Viewports) for more information about these fields. |
-| `nickname`  |           | Used to add a nickname to the map, for ease of use with GraphQL                                                                                                        | This field will default to using the hash ID if not specified. |
-| `maps`  |           | Used to add multiple maps to gatsby.                                                                                                        | This field takes all the same options as the options field, however it will override the options field for that map. |
+| `nickname` |           | Used to add a nickname to the map, for ease of use with GraphQL                                                                                                 | This field will default to using the hash ID if not specified.                                                                                                                                                                                                     |
+| `maps`     |           | Used to add multiple maps to gatsby.                                                                                                                            | This field takes all the same options as the options field, however it will override the options field for that map.                                                                                                                                               |
 
 > ** If provided with both `key` and `clientID`, **GSGS\*\* will prefer to use `clientID`.
 
@@ -361,7 +363,8 @@ query StaticMapQuery {
     staticMap {
         childFile {
             childImageSharp {
-                fluid { # or fixed
+                fluid {
+                    # or fixed
                     ...GatsbyImageSharpFluid
                 }
             }
@@ -388,21 +391,21 @@ Here's an example of querying the multiple generated files to get one specific b
 
 ```gql
 query StaticMapQuery {
-  allStaticMap(filter: {nickname: {eq: "Beach"}}) {
-    edges {
-      node {
-        childFile {
-          childImageSharp {
-              fluid { # or fixed
-                ...GatsbyImageSharpFluid
-              }
-          }
+    allStaticMap(filter: { nickname: { eq: "Beach" } }) {
+        edges {
+            node {
+                childFile {
+                    childImageSharp {
+                        fluid {
+                            # or fixed
+                            ...GatsbyImageSharpFluid
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
-
 ```
 
 <br>
