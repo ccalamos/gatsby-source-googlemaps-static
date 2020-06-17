@@ -8,7 +8,12 @@ const createFilePath = (directory: string, filename: string, ext: string) => {
     return path.join(directory, `${filename}${ext}`);
 };
 
-export default async (data: Buffer, store: any, ext: string, id: string) => {
+export default async (
+    data: Buffer,
+    store: { getState: () => Record<string, Record<string, string>> },
+    ext: string,
+    id: string
+): Promise<string> => {
     const pluginCacheDir: string = path.join(
         store.getState().program.directory,
         CACHE_DIR,

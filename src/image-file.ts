@@ -11,7 +11,18 @@ class ImageFile extends CacheFile {
     private _useSignature = false;
     private _useClient = false;
 
-    public constructor(cache: any, params: any) {
+    public constructor(
+        cache: unknown,
+        params: {
+            hasSecret: boolean;
+            markers: string | Array<string>;
+            visible: string | Array<string>;
+            style: string | Array<string>;
+            path: string | Array<string>;
+            format: string;
+            client: string;
+        }
+    ) {
         super(cache, queryString.stringify(params));
 
         this._useSignature = params.hasSecret;
@@ -54,10 +65,10 @@ class ImageFile extends CacheFile {
     }
 
     public async getHref(
-        store: any,
+        store: unknown,
         keyOrClient: string,
         secret: string | undefined
-    ) {
+    ): Promise<Record<string, string>> {
         return await this.getPath(
             store,
             this.getUrl(keyOrClient, secret),
@@ -86,7 +97,7 @@ class ImageFile extends CacheFile {
     }
 
     private generateParams(
-        options: object,
+        options: Record<string, unknown>,
         prependStr: Array<string> | string = "",
         appendStr: Array<string> | string = ""
     ) {
@@ -115,7 +126,7 @@ class ImageFile extends CacheFile {
         );
     }
 
-    private parseArrayParams(options: string | Array<any>, type: string) {
+    private parseArrayParams(options: string | Array<string>, type: string) {
         if (typeof options === "string") {
             return `${type}=${options}`;
         }

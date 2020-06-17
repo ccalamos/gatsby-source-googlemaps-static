@@ -9,11 +9,13 @@ declare module "gatsby-source-googlemaps-static" {
         readonly mapType?: string;
         readonly clientID?: string;
         readonly secret?: string;
-        readonly markers?: Array<Object> | string;
-        readonly paths?: Array<Object> | string;
-        readonly styles?: Array<Object> | string;
+        readonly markers?: Array<Record<string, unknown>> | string;
+        readonly paths?: Array<Record<string, unknown>> | string;
+        readonly styles?: Array<Record<string, unknown>> | string;
         readonly visible?: Array<string> | string;
         readonly query?: string;
+        maps?: Array<Record<string, unknown>>;
+        plugins?: unknown;
     }
 
     export interface MarkerOptions {
@@ -49,4 +51,3 @@ declare module "gatsby-source-googlemaps-static" {
         readonly rules: string | RuleOptions;
     }
 }
-

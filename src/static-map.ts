@@ -1,4 +1,4 @@
-/// <reference path="../index.d.ts" />
+/// <reference path="./index.d.ts" />
 
 import {
     MarkerOptions,
@@ -33,11 +33,11 @@ class StaticMap {
     private _file: ImageFile;
     private _url: string;
     private _query: string | undefined;
-    private _store: any;
-    private _options: MapOptions | any = {};
+    private _store: unknown;
+    private _options: MapOptions;
     private _isImplicit = false;
 
-    public constructor(options: ConfigOptions, cache: any, store: any) {
+    public constructor(options: ConfigOptions, cache: unknown, store: unknown) {
         this._store = store;
         this.options = options;
         this._isImplicit = this.isImplicit();
@@ -51,7 +51,7 @@ class StaticMap {
     public async getFilePath(
         key: string | undefined,
         secret: string | undefined = undefined
-    ) {
+    ): Promise<{ absolutePath: string; center: string; hash: string }> {
         const keyOrClient = this._options.client ? this._options.client : key;
 
         const { path, hash } = await this._file.getHref(
@@ -67,7 +67,7 @@ class StaticMap {
         };
     }
 
-    get url() {
+    get url(): string {
         return this._url;
     }
 
@@ -79,12 +79,12 @@ class StaticMap {
         );
     }
 
-    private set file(fileCache: any) {
+    private set file(fileCache: unknown) {
         this._file = new ImageFile(fileCache, this.getJSON());
     }
 
     private set options(newOptions: ConfigOptions) {
-        this._options = {};
+        this._options = {} as MapOptions;
         this._options.size = newOptions.size
             ? newOptions.size.includes("x")
                 ? newOptions.size
@@ -117,6 +117,7 @@ class StaticMap {
             visible: this.mapArray(this._options.visible),
             style: this.mapArray(this._options.styles),
             path: this.mapArray(this._options.paths),
+            client: this._options.client,
         };
 
         if (!this._isImplicit) {
@@ -127,8 +128,16 @@ class StaticMap {
     }
 
     private parseOption(
-        options: Array<Object> | string | undefined,
-        classType: any = undefined
+        options:
+            | Array<
+                  | Record<string, unknown>
+                  | MarkerOptions
+                  | PathOptions
+                  | StyleOptions
+                  | string
+              >
+            | string,
+        classType: Marker | Path | Style | any = undefined
     ) {
         if (options) {
             if (typeof options === "string") {
@@ -152,7 +161,7 @@ class StaticMap {
         }
     }
 
-    private mapArray(types: Array<any> | string) {
+    private mapArray(types: Array<string | Marker | Path | Style> | string) {
         if (!types) {
             return undefined;
         }
@@ -199,7 +208,9 @@ class StaticMap {
 
     private parseWayPoints() {
         if (this._options.paths) {
-            return this._options.paths[0]?.wayPoints;
+            return typeof this._options.paths[0] === "string"
+                ? this._options.paths[0]
+                : this._options.paths[0]?.wayPoints;
         }
 
         const points = this.getWayPoints();
@@ -208,21 +219,28 @@ class StaticMap {
             wayPoints = "";
 
         if (points.length === 1) {
-            return `origin=${points[0].wayPoint ||
-                points[0]}&destination=${points[0].wayPoint || points[0]}`;
+            return typeof points[0] === "string"
+                ? `origin=${points[0]}&destination=${points[0]}`
+                : `origin=${points[0].wayPoint}&destination=${points[0].wayPoint}`;
         } else if (points.length === 2) {
-            return `origin=${points[0].wayPoint ||
-                points[0]}&destination=${points[1].wayPoint || points[1]}`;
+            return typeof points[0] === "string" ||
+                typeof points[1] === "string"
+                ? `origin=${points[0]}&destination=${points[1]}`
+                : `origin=${points[0].wayPoint}&destination=${points[1].wayPoint}`;
         }
 
         points.forEach((point, idx) => {
             if (idx === 0) {
-                origin = encodeURIComponent(point.wayPoint || point);
+                origin = encodeURIComponent(
+                    typeof point === "string" ? point : point.wayPoint
+                );
             } else if (idx === points.length - 1) {
-                destination = encodeURIComponent(point.wayPoint || point);
+                destination = encodeURIComponent(
+                    typeof point === "string" ? point : point.wayPoint
+                );
             } else {
                 wayPoints += `${encodeURIComponent("|")}${encodeURIComponent(
-                    point.wayPoint || point
+                    typeof point === "string" ? point : point.wayPoint
                 )}`;
             }
         });

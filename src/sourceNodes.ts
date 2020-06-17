@@ -1,11 +1,20 @@
+/// <reference path="./index.d.ts" />
+import { ConfigOptions } from "gatsby-source-googlemaps-static";
+
 import { createFileNode } from "gatsby-source-filesystem/create-file-node";
 
 import StaticMap from "./static-map";
 
 async function sourceNodes(
-    { actions, createNodeId, createContentDigest, store, cache },
-    configOptions
-) {
+    {
+        actions,
+        createNodeId,
+        createContentDigest,
+        store,
+        cache,
+    }: Record<string, any>,
+    configOptions: ConfigOptions
+): Promise<void> {
     delete configOptions.plugins;
     const { createNode } = actions;
 

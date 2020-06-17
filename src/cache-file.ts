@@ -8,14 +8,23 @@ abstract class CacheFile {
     protected _type: string;
 
     private _axiosClient: AxiosInstance | undefined;
-    private _cache: any;
+    private _cache: {
+        get: (cacheId: string) => string;
+        set: (cacheId: string, path: string) => string;
+    };
 
     private _hash: string;
     private _guid: string;
     private _cacheId: string;
     private _isCached: boolean;
 
-    protected constructor(cache: any, hash: string) {
+    protected constructor(
+        cache: {
+            get: (cacheId: string) => string;
+            set: (cacheId: string, path: string) => string;
+        },
+        hash: string
+    ) {
         this._cache = cache;
         this.hash = hash;
 
@@ -29,7 +38,11 @@ abstract class CacheFile {
         }
     }
 
-    protected async getPath(store: any, url: string, ext: string) {
+    protected async getPath(
+        store: { getState: () => Record<string, Record<string, string>> },
+        url: string,
+        ext: string
+    ): Promise<{ path: string; hash: string }> {
         if (this._path) return { path: this._path, hash: this._hash };
 
         if (!this._isCached) {
@@ -50,7 +63,11 @@ abstract class CacheFile {
         return { path, hash: this._guid };
     }
 
-    private async createFile(data: Buffer, store: any, ext: string) {
+    private async createFile(
+        data: Buffer,
+        store: { getState: () => Record<string, Record<string, string>> },
+        ext: string
+    ) {
         return createFile(data, store, ext, this._guid);
     }
 

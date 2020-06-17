@@ -13,4 +13,7 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
         "prettier/@typescript-eslint",
     ],
+    rules: {
+        "@typescript-eslint/triple-slash-reference": 0,
+    },
 };

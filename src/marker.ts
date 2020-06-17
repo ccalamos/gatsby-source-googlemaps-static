@@ -1,4 +1,4 @@
-/// <reference path="../index.d.ts" />
+/// <reference path="./index.d.ts" />
 
 import { MarkerOptions } from "gatsby-source-googlemaps-static";
 
@@ -67,11 +67,11 @@ class Marker {
         }`;
     }
 
-    get urlParams() {
+    get urlParams(): string {
         return this._params;
     }
 
-    get wayPoint() {
+    get wayPoint(): string {
         return this._location;
     }
 }

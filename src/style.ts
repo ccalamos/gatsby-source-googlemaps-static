@@ -1,4 +1,4 @@
-/// <reference path="../index.d.ts" />
+/// <reference path="./index.d.ts" />
 
 import { StyleOptions, RuleOptions } from "gatsby-source-googlemaps-static";
 
@@ -18,11 +18,7 @@ class Style {
         }
     }
 
-    private newOption(
-        key: string,
-        value: string | undefined,
-        next = false
-    ) {
+    private newOption(key: string, value: string | undefined, next = false) {
         return value
             ? `${key}:${value}${next ? encodeURIComponent("|") : ""}`
             : "";
@@ -59,7 +55,7 @@ class Style {
         this._rules = [...rules];
     }
 
-    get urlParams() {
+    get urlParams(): string {
         return this.generateParams();
     }
 }

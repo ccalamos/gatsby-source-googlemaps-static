@@ -56,7 +56,7 @@ function encodeBase64Hash(key: Buffer, data: string) {
  * @param  {string} secret Your unique secret key.
  * @return {string}
  */
-function sign(path: string, secret: string) {
+function sign(path: string, secret: string): string {
     const uri = url.parse(path);
     const safeSecret = decodeBase64Hash(removeWebSafe(secret));
     const hashedSignature = makeWebSafe(encodeBase64Hash(safeSecret, uri.path));

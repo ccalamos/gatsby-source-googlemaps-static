@@ -1,4 +1,4 @@
-/// <reference path="../index.d.ts" />
+/// <reference path="./index.d.ts" />
 
 import { PathOptions } from "gatsby-source-googlemaps-static";
 
@@ -61,20 +61,20 @@ class Path {
         this._points = [...points];
     }
 
-    get urlParams() {
+    get urlParams(): string {
         return this.generateParams();
     }
 
-    get wayPoints() {
+    get wayPoints(): string {
+        let origin,
+            destination,
+            wayPoints = "";
         switch (this._points.length) {
             case 1:
                 return `origin=${this._points[0]}&destination=${this._points[0]}`;
             case 2:
                 return `origin=${this._points[0]}&destination=${this._points[1]}`;
             default:
-                let origin,
-                    destination,
-                    wayPoints = "";
                 this._points.forEach((point, idx) => {
                     if (idx === 0) {
                         origin = point;
