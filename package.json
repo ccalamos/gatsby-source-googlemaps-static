@@ -3,7 +3,7 @@
     "description": "Gatsby source plugin for Google Maps Static API",
     "version": "1.1.5",
     "author": "Cole Calamos <cole@colejcalamos.com>",
-    "main": "./dist/gatsby-node.js",
+    "main": "./gatsby-node.js",
     "bugs": {
         "url": "https://github.com/ccalamos/gatsby-source-googlemaps-static/issues"
     },
@@ -46,12 +46,12 @@
         "query-string": "^6.9.0"
     },
     "scripts": {
-        "build": "babel src --out-dir dist --ignore **/__tests__ --extensions '.ts'",
+        "build": "babel src --out-dir dist --extensions '.ts'",
         "watch": "babel --watch src --out-dir dist --ignore **/__tests__ --extensions '.ts'",
         "format": "prettier --write src/**/*.ts",
         "clean": "rm -rf dist",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-        "prepublishOnly": "yarn run build"
+        "prepublishOnly": "yarn run clean && yarn run build"
     },
     "peerDependencies": {
         "gatsby": "^2.2.0"
