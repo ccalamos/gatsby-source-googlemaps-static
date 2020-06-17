@@ -1,17 +1,19 @@
 {
-	"presets": [
+    "presets": [
         "@babel/typescript",
         [
             "@babel/preset-env",
             {
                 "targets": {
-                    "node": "6"
+                    "node": "current"
                 }
             }
-        ]
-	],
-	"plugins": [
+        ],
+        "minify"
+    ],
+    "ignore": ["**/*.d.ts"],
+    "plugins": [
         "@babel/proposal-class-properties",
         "@babel/proposal-object-rest-spread"
-	]
+    ]
 }

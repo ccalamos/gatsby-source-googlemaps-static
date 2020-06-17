@@ -91,9 +91,9 @@ class StaticMap {
                 : `${newOptions.size}x${newOptions.size}`
             : "640x640";
 
-        this._options.markers = this.parseOption(newOptions.markers, Marker);
-        this._options.paths = this.parseOption(newOptions.paths, Path);
-        this._options.styles = this.parseOption(newOptions.styles, Style);
+        this._options.markers = this.parseOption(newOptions.markers, "Marker");
+        this._options.paths = this.parseOption(newOptions.paths, "Path");
+        this._options.styles = this.parseOption(newOptions.styles, "Style");
         this._options.visible = this.parseOption(newOptions.visible);
 
         this._options.hasSecret = !!newOptions.secret;
@@ -137,7 +137,7 @@ class StaticMap {
                   | string
               >
             | string,
-        classType: Marker | Path | Style | any = undefined
+        classType?: string
     ) {
         if (options) {
             if (typeof options === "string") {
@@ -152,7 +152,28 @@ class StaticMap {
                     if (typeof option === "string") {
                         newOptions = [...newOptions, option];
                     } else {
-                        newOptions = [...newOptions, new classType(option)];
+                        switch (classType) {
+                            case "Path":
+                                newOptions = [
+                                    ...newOptions,
+                                    new Path(option as PathOptions),
+                                ];
+                                break;
+                            case "Marker":
+                                newOptions = [
+                                    ...newOptions,
+                                    new Marker(option as MarkerOptions),
+                                ];
+                                break;
+                            case "Style":
+                                newOptions = [
+                                    ...newOptions,
+                                    new Style(option as StyleOptions),
+                                ];
+                                break;
+                            default:
+                                newOptions = [...newOptions, option];
+                        }
                     }
                 }
             );

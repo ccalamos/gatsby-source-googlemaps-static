@@ -12,7 +12,18 @@ async function sourceNodes(
         createContentDigest,
         store,
         cache,
-    }: Record<string, any>,
+    }: {
+        actions: {
+            createNode: (
+                fileNode: unknown,
+                options?: Record<string, unknown>
+            ) => unknown;
+        };
+        createNodeId: (hash: string) => string;
+        createContentDigest: (datum) => unknown;
+        store: unknown;
+        cache: unknown;
+    },
     configOptions: ConfigOptions
 ): Promise<void> {
     delete configOptions.plugins;
