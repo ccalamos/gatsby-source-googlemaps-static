@@ -20,9 +20,7 @@
   <br>
 </div>
 
-[![npm package][npm-image]][npm-url]
-[![Dependencies Status][david-image]][david-url]
-[![NPM Version][https://img.shields.io/npm/v/gatsby-source-googlemaps-static?style=flat-square]][https://www.npmjs.com/package/gatsby-source-googlemaps-static]
+[![NPM Version](https://img.shields.io/npm/v/gatsby-source-googlemaps-static?style=flat-square)](https://www.npmjs.com/package/gatsby-source-googlemaps-static)
 [![GitHub last commit](https://img.shields.io/github/last-commit/ccalamos/gatsby-source-googlemaps-static?label=updated&style=flat-square)](https://github.com/ccalamos/gatsby-source-googlemaps-static)
 [![Typescript](https://camo.githubusercontent.com/92e9f7b1209bab9e3e9cd8cdf62f072a624da461/68747470733a2f2f666c61742e62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565)](https://www.typescriptlang.org/)
 [![PRs](https://img.shields.io/badge/PRs-welcome-green?style=flat-square)](https://github.com/ccalamos/gatsby-source-googlemaps-static/pulls)
