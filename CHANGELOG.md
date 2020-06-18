@@ -5,9 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.9] - 2020-06-17
+
+Updated index type file
+
+### Changed
+
+- Updated index.d.ts to use T[] instead of Array<T>.
+
 ## [1.1.8] - 2020-06-17
 
-Updated TypeScript files to
+Updated TypeScript files to upgrade Code Inspector quality score
 
 ### Changed
 

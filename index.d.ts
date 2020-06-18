@@ -33,7 +33,7 @@ declare module "gatsby-source-googlemaps-static" {
         readonly color?: string;
         readonly fillColor?: string;
         readonly geoDesic?: boolean;
-        readonly points: string | Array<string>;
+        readonly points: string | string[];
     }
     export interface RuleOptions {
         readonly hue?: string;
