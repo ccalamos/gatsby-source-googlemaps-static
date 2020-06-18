@@ -1,40 +1,25 @@
-<div>
-  <div style="text-align:center;">
-    <h1 style="text-align:center;">
-      Gatsby Source Google Maps Static Plugin
-      <br>
-      <span style="font-size:small">
-        <b>GSGS</b> (gatsby-source-googlemaps-static)
-      </span>
-    </h1>
-  </div>
+Gatsby Source Google Maps Static Plugin
+=======================================
+__GSGS__ _(gatsby-source-googlemaps-static)_
 
-  <br>
 
-  <div style="text-align:center;">
-    <a href="https://www.gatsbyjs.org/">
-      <img alt="gatsby" src="https://img.shields.io/badge/Gatsby.js-Source%20Plugin-blueviolet?style=for-the-badge&logo=gatsby&labelColor=blueviolet&color=555">
-    </a>
-  </div>
+[![Gatsby](https://img.shields.io/badge/Gatsby.js-Source%20Plugin-blueviolet?style=for-the-badge&logo=gatsby&labelColor=blueviolet&color=555)](https://www.gatsbyjs.org/)
 
-  <br>
-</div>
 
-[![NPM Version](https://img.shields.io/npm/v/gatsby-source-googlemaps-static?style=flat-square)](https://www.npmjs.com/package/gatsby-source-googlemaps-static)
-[![GitHub last commit](https://img.shields.io/github/last-commit/ccalamos/gatsby-source-googlemaps-static?label=updated&style=flat-square)](https://github.com/ccalamos/gatsby-source-googlemaps-static)
-[![Typescript](https://camo.githubusercontent.com/92e9f7b1209bab9e3e9cd8cdf62f072a624da461/68747470733a2f2f666c61742e62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565)](https://www.typescriptlang.org/)
-[![PRs](https://img.shields.io/badge/PRs-welcome-green?style=flat-square)](https://github.com/ccalamos/gatsby-source-googlemaps-static/pulls)
+[![npm package](https://img.shields.io/npm/v/gatsby-source-googlemaps-static.svg)](https://npmjs.com/gatsby-source-googlemaps-static)
+[![Downloads](https://img.shields.io/npm/dm/gatsby-source-googlemaps-static.svg)](https://npmjs.com/gatsby-source-googlemaps-static)
+[![dependencies Status](https://david-dm.org/ccalamos/gatsby-source-googlemaps-static/status.svg)](https://david-dm.org/ccalamos/gatsby-source-googlemaps-static)
+[![npm type definitions](https://img.shields.io/npm/types/gatsby-source-googlemaps-static.svg)](https://www.typescriptlang.org/)
 [![DeepScan grade](https://deepscan.io/api/teams/9777/projects/12370/branches/190219/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9777&pid=12370&bid=190219)
 [![Code Inspector grade](https://www.code-inspector.com/project/9641/score/svg)](https://frontend.code-inspector.com/public/project/9641/gatsby-source-googlemaps-static/dashboard)
 
-<br>
 
 This source plugin for Gatsby will make location information from [Google Maps](https://cloud.google.com/maps-platform/) available in GraphQL queries and provide a link to open that map on [Google Maps](https://developers.google.com/maps/documentation/urls/guide#top_of_page). **GSGS** (gatsby-source-googlemaps-static) plugin will also cache the image response and only make a call to the API when the cache is invalid or empty. The cache is invalidated when you change any of the values below _(Omitting the key and secret)_.
 
 **GSGS** will also obscure your API key by only holding onto the key, or secret, when an API call is necessary. After the key, or secret, has been deemed unnecessary, it will be deleted from memory.
 
-<br>
-<br>
+
+
 
 ## Install
 
@@ -46,8 +31,8 @@ npm install gatsby-source-googlemaps-static
 yarn add gatsby-source-googlemaps-static
 ```
 
-<br>
-<br>
+
+
 
 ## How to use
 
@@ -71,8 +56,8 @@ module.exports = {
 
 **NOTE:** To get a Google Maps Static API key, [register for a Google Maps dev account](https://console.cloud.google.com/google/maps-apis).
 
-<br>
-<br>
+
+
 
 ## Options
 
@@ -149,7 +134,8 @@ module.exports = {
 };
 ```
 
-<br>
+
+
 
 | Option     | Default   | Description                                                                                                                                                     | Notes                                                                                                                                                                                                                                                              |
 | ---------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -174,8 +160,8 @@ module.exports = {
 
 > If map is generated using Implicit Mapping, then the generated URL will be using [Google Directions Waypoints](https://developers.google.com/maps/documentation/urls/guide#directions-examples-using-waypoints). The first `paths` `points` will be the waypoints, if that is not provided then it will use the `markers` `locations`, if that is not provided then it will use the `visible` `locations`.
 
-<br>
-<br>
+
+
 
 ### Example Configuration
 
@@ -195,7 +181,8 @@ module.exports = {
 };
 ```
 
-<br>
+
+
 
 _Another Very Simple Configuration Example_
 
@@ -213,7 +200,8 @@ module.exports = {
 };
 ```
 
-<br>
+
+
 
 _An Implicit Mapping Configuration Example_
 
@@ -243,7 +231,8 @@ module.exports = {
 };
 ```
 
-<br>
+
+
 
 _Signature Configuration Example (Using API KEY)_
 
@@ -262,7 +251,8 @@ module.exports = {
 };
 ```
 
-<br>
+
+
 
 _Signature Configuration Example (Using Client ID)_
 
@@ -281,7 +271,8 @@ module.exports = {
 };
 ```
 
-<br>
+
+
 
 _Query Configuration Example_
 
@@ -300,7 +291,8 @@ module.exports = {
 };
 ```
 
-<br>
+
+
 
 _Multiple Maps Example_
 
@@ -340,8 +332,8 @@ module.exports = {
 };
 ```
 
-<br>
-<br>
+
+
 
 ### GraphQl Queries
 
@@ -364,7 +356,8 @@ query StaticMapQuery {
 }
 ```
 
-<br>
+
+
 
 Here’s an example query to get the generated [**Google Maps URL**](https://developers.google.com/maps/documentation/urls/guide#top_of_page) of the Static Map:
 
@@ -376,7 +369,8 @@ query StaticMapQuery {
 }
 ```
 
-<br>
+
+
 
 Here's an example of querying the multiple generated files to get one specific by the nickname:
 
@@ -399,7 +393,8 @@ query StaticMapQuery {
 }
 ```
 
-<br>
+
+
 
 If you are using `format: 'gif'` _Image Sharp_ will not be able to process your image, however you can still access your cached/downloaded image like so:
 
@@ -413,7 +408,7 @@ query StaticMapGifQuery {
 }
 ```
 
-<br>
-<br>
+
+
 
 See the [Image Sharp Plugin](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-image) or the GraphiQL UI for info on all returned fields.

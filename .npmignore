@@ -33,5 +33,4 @@ coverage
 decls
 examples
 *.ts
-*.d.ts
 .github

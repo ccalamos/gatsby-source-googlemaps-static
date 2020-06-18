@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.11] - 2020-06-18
+
+Fixed README.md badges to be parsed by NPM
+
+### Fixed
+
+- Fixed README badges.
+
+### Changed
+
+- Updated npmignore file to allow types def.
+
 ## [1.1.10] - 2020-06-17
 
 Updated index type file
