@@ -9,13 +9,13 @@ declare module "gatsby-source-googlemaps-static" {
         readonly mapType?: string;
         readonly clientID?: string;
         readonly secret?: string;
-        readonly markers?: Array<Record<string, unknown>> | string;
-        readonly paths?: Array<Record<string, unknown>> | string;
-        readonly styles?: Array<Record<string, unknown>> | string;
-        readonly visible?: Array<string> | string;
+        readonly markers?: Record<string, unknown>[] | string;
+        readonly paths?: Record<string, unknown>[] | string;
+        readonly styles?: Record<string, unknown>[] | string;
+        readonly visible?: string[] | string;
         readonly query?: string;
         nickname?: string;
-        maps?: Array<Record<string, unknown>>;
+        maps?: Record<string, unknown>[];
         plugins?: unknown;
     }
 

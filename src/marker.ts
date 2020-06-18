@@ -1,5 +1,3 @@
-/// <reference path="../index.d.ts" />
-
 import { MarkerOptions } from "gatsby-source-googlemaps-static";
 
 class Marker {

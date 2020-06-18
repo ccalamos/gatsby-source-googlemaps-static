@@ -17,10 +17,10 @@ class ImageFile extends CacheFile {
         cache: NodePluginArgs["cache"],
         params: {
             hasSecret: boolean;
-            markers: string | Array<string>;
-            visible: string | Array<string>;
-            style: string | Array<string>;
-            path: string | Array<string>;
+            markers: string | string[];
+            visible: string | string[];
+            style: string | string[];
+            path: string | string[];
             format: string;
             client: string;
         }
@@ -100,11 +100,11 @@ class ImageFile extends CacheFile {
 
     private generateParams(
         options: Record<string, unknown>,
-        prependStr: Array<string> | string = "",
-        appendStr: Array<string> | string = ""
+        prependStr: string[] | string = "",
+        appendStr: string[] | string = ""
     ) {
-        let pStr = "",
-            aStr = "";
+        let pStr = "";
+        let aStr = "";
 
         if (typeof prependStr === "string") {
             pStr = prependStr;
@@ -129,7 +129,7 @@ class ImageFile extends CacheFile {
         );
     }
 
-    private parseArrayParams(options: string | Array<string>, type: string) {
+    private parseArrayParams(options: string | string[], type: string) {
         if (typeof options === "string") {
             return `${type}=${options}`;
         }

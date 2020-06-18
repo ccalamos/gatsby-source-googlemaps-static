@@ -1,9 +1,7 @@
-/// <reference path="../index.d.ts" />
-
 import { PathOptions } from "gatsby-source-googlemaps-static";
 
 class Path {
-    private _points: Array<string> = [];
+    private _points: string[] = [];
     private _weight: string | undefined;
     private _color: string | undefined;
     private _fillColor: string | undefined;
@@ -51,10 +49,10 @@ class Path {
         );
     }
 
-    private set points(newPoints: Array<string>) {
-        const points = [] as Array<string>;
+    private set points(newPoints: string[]) {
+        const points = [] as string[];
 
-        newPoints.forEach(point => {
+        newPoints.forEach((point) => {
             points.push(encodeURIComponent(point));
         });
 
@@ -66,9 +64,10 @@ class Path {
     }
 
     get wayPoints(): string {
-        let origin,
-            destination,
-            wayPoints = "";
+        let origin = "";
+        let destination = "";
+        let wayPoints = "";
+
         switch (this._points.length) {
             case 1:
                 return `origin=${this._points[0]}&destination=${this._points[0]}`;

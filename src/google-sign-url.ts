@@ -43,10 +43,7 @@ function decodeBase64Hash(code: string) {
  * @return {string}
  */
 function encodeBase64Hash(key: Buffer, data: string) {
-    return crypto
-        .createHmac("sha1", key)
-        .update(data)
-        .digest("base64");
+    return crypto.createHmac("sha1", key).update(data).digest("base64");
 }
 
 /**

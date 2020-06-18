@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.8] - 2020-06-17
+
+Updated TypeScript files to
+
+### Changed
+
+- Updated *.ts and *.d.ts to use T[] instead of Array<T>.
+- Renamed path to newPath.
+- Discontinued use of multiple variable declaration.
+
 ## [1.1.7] - 2020-06-17
 
 Updated Changelog format, ignored files, and updated all packages.

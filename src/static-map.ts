@@ -1,5 +1,3 @@
-/// <reference path="../index.d.ts" />
-
 import {
     MarkerOptions,
     PathOptions,
@@ -22,10 +20,10 @@ interface MapOptions {
     scale?: string;
     mapType?: string;
     client?: string;
-    markers: Array<Marker> | string;
-    paths: Array<Path> | string;
-    styles: Array<Style> | string;
-    visible: Array<string> | string;
+    markers: Marker[] | string;
+    paths: Path[] | string;
+    styles: Style[] | string;
+    visible: string[] | string;
     hasSecret?: boolean;
 }
 
@@ -56,7 +54,7 @@ class StaticMap {
 
     public async getFilePath(
         key: string,
-        secret: string | undefined = undefined
+        secret?: string
     ): Promise<{
         absolutePath: string;
         center: string | undefined;
@@ -106,31 +104,39 @@ class StaticMap {
         this._options.markers =
             (this.parseOption(
                 newOptions.markers as
-                    | Array<MarkerOptions | PathOptions | StyleOptions | string>
+                    | MarkerOptions[]
+                    | PathOptions[]
+                    | StyleOptions[]
+                    | string[]
                     | string
                     | Record<string, unknown>,
                 "Marker"
-            ) as Array<Marker> | string) || "";
+            ) as Marker[] | string) || "";
         this._options.paths =
             (this.parseOption(
                 newOptions.paths as
-                    | Array<MarkerOptions | PathOptions | StyleOptions | string>
+                    | MarkerOptions[]
+                    | PathOptions[]
+                    | StyleOptions[]
+                    | string[]
                     | string
                     | Record<string, unknown>,
                 "Path"
-            ) as Array<Path> | string) || "";
+            ) as Path[] | string) || "";
         this._options.styles =
             (this.parseOption(
                 newOptions.styles as
-                    | Array<MarkerOptions | PathOptions | StyleOptions | string>
+                    | MarkerOptions[]
+                    | PathOptions[]
+                    | StyleOptions[]
+                    | string[]
                     | string
                     | Record<string, unknown>,
                 "Style"
-            ) as Array<Style> | string) || "";
+            ) as Style[] | string) || "";
         this._options.visible =
-            (this.parseOption(newOptions.visible || "") as
-                | Array<string>
-                | string) || "";
+            (this.parseOption(newOptions.visible || "") as string[] | string) ||
+            "";
 
         this._options.hasSecret = !!newOptions.secret;
         this._options.zoom = newOptions.zoom || "14";
@@ -166,7 +172,10 @@ class StaticMap {
 
     private parseOption(
         options:
-            | Array<MarkerOptions | PathOptions | StyleOptions | string>
+            | MarkerOptions[]
+            | PathOptions[]
+            | StyleOptions[]
+            | string[]
             | string
             | Record<string, unknown>
             | undefined,
@@ -180,32 +189,32 @@ class StaticMap {
                 return options;
             }
 
-            let newOptions = [] as Array<Marker | Path | Style | string>;
+            let newOptions = [] as Marker[] | Path[] | Style[] | string[];
             options.forEach(
                 (
                     option: MarkerOptions | PathOptions | StyleOptions | string
                 ) => {
                     if (typeof option === "string") {
-                        newOptions = [...newOptions, option] as Array<string>;
+                        newOptions = [...newOptions, option] as string[];
                     } else {
                         switch (classType) {
                             case "Path":
                                 newOptions = [
                                     ...newOptions,
                                     new Path(option as PathOptions),
-                                ] as Array<Path>;
+                                ] as Path[];
                                 break;
                             case "Marker":
                                 newOptions = [
                                     ...newOptions,
                                     new Marker(option as MarkerOptions),
-                                ] as Array<Marker>;
+                                ] as Marker[];
                                 break;
                             case "Style":
                                 newOptions = [
                                     ...newOptions,
                                     new Style(option as StyleOptions),
-                                ] as Array<Style>;
+                                ] as Style[];
                                 break;
                         }
                     }
@@ -217,16 +226,12 @@ class StaticMap {
         return "";
     }
 
-    private mapArray(types: Array<string | Marker | Path | Style> | string) {
-        if (!types) {
-            return undefined;
-        }
-
+    private mapArray(types: (string | Marker | Path | Style)[] | string) {
         if (typeof types === "string") {
             return types;
         }
 
-        return types.map(type => {
+        return types.map((type: string | Marker | Path | Style) => {
             if (typeof type === "string") {
                 return encodeURIComponent(type);
             }
@@ -270,9 +275,9 @@ class StaticMap {
         }
 
         const points = this.getWayPoints();
-        let origin,
-            destination,
-            wayPoints = "";
+        let origin = "";
+        let destination = "";
+        let wayPoints = "";
 
         if (points.length === 1) {
             return typeof points[0] === "string"

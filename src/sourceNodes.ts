@@ -1,5 +1,3 @@
-/// <reference path="../index.d.ts" />
-/// <reference path="./gatsby-source-filesystem/create-file-node.d.ts" />
 import { ConfigOptions } from "gatsby-source-googlemaps-static";
 import { Store, NodePluginArgs } from "gatsby";
 
@@ -59,7 +57,7 @@ async function sourceNodes(
 
             const nodeContent = JSON.stringify(datum);
             const nodeMeta = {
-                id: id,
+                id,
                 parent: null,
                 children: [fileNode.id],
                 internal: {

@@ -37,16 +37,16 @@ abstract class CacheFile {
         if (this._path) return { path: this._path, hash: this._hash };
 
         if (!this._isCached) {
-            return this.downloadFile(url).then(async response => {
-                const path: string = await this.createFile(
+            return this.downloadFile(url).then(async (response) => {
+                const newPath: string = await this.createFile(
                     response.data,
                     store,
                     ext
                 );
-                await this.setCache(path);
-                this._path = path;
+                await this.setCache(newPath);
+                this._path = newPath;
 
-                return { path, hash: this._hash };
+                return { path: newPath, hash: this._hash };
             });
         }
         const path = await this.fetchCache();
@@ -86,10 +86,7 @@ abstract class CacheFile {
     }
 
     private generateGUID() {
-        return crypto
-            .createHash("sha256")
-            .update(this._hash)
-            .digest("hex");
+        return crypto.createHash("sha256").update(this._hash).digest("hex");
     }
 }
 
