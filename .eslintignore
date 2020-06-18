@@ -1,7 +1,5 @@
 node_modules
-dist
 .github
-gatsby-node.js
 *.js
 !*config.js
 *.d.ts

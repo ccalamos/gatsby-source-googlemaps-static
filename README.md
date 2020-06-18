@@ -18,23 +18,14 @@
   </div>
 
   <br>
-  <div style="text-align:center;">
-    <a href="https://www.npmjs.com/package/gatsby-source-googlemaps-static">
-      <img alt="npm" src="https://img.shields.io/npm/v/gatsby-source-googlemaps-static?style=flat-square">
-    </a>
-    <a href="https://github.com/ccalamos/gatsby-source-googlemaps-static">
-      <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/ccalamos/gatsby-source-googlemaps-static?label=updated&style=flat-square">
-    </a>
-    <a href="https://www.typescriptlang.org/">
-      <img alt="typescript" src="https://camo.githubusercontent.com/92e9f7b1209bab9e3e9cd8cdf62f072a624da461/68747470733a2f2f666c61742e62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565">
-    </a>
-    <a href="https://github.com/ccalamos/gatsby-source-googlemaps-static/pulls">
-      <img alt="PRs" src="https://img.shields.io/badge/PRs-welcome-green?style=flat-square">
-    </a>
-    <a href="https://deepscan.io/dashboard#view=project&tid=9777&pid=12370&bid=190780"><img src="https://deepscan.io/api/teams/9777/projects/12370/branches/190780/badge/grade.svg" alt="DeepScan grade"></a>
-    <a href="https://frontend.code-inspector.com/public/project/9641/gatsby-source-googlemaps-static/dashboard"><img src="https://www.code-inspector.com/project/9641/score/svg" alt="Code Inspector grade"/></a>
-  </div>
 </div>
+
+[![NPM Version](https://img.shields.io/npm/v/gatsby-source-googlemaps-static?style=flat-square)](https://www.npmjs.com/package/gatsby-source-googlemaps-static)
+[![GitHub last commit](https://img.shields.io/github/last-commit/ccalamos/gatsby-source-googlemaps-static?label=updated&style=flat-square)](https://github.com/ccalamos/gatsby-source-googlemaps-static)
+[![Typescript](https://camo.githubusercontent.com/92e9f7b1209bab9e3e9cd8cdf62f072a624da461/68747470733a2f2f666c61742e62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565)](https://www.typescriptlang.org/)
+[![PRs](https://img.shields.io/badge/PRs-welcome-green?style=flat-square)](https://github.com/ccalamos/gatsby-source-googlemaps-static/pulls)
+[![DeepScan grade](https://deepscan.io/api/teams/9777/projects/12370/branches/190219/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9777&pid=12370&bid=190219)
+[![Code Inspector grade](https://www.code-inspector.com/project/9641/score/svg)](https://frontend.code-inspector.com/public/project/9641/gatsby-source-googlemaps-static/dashboard)
 
 <br>
 
