@@ -1,11 +1,11 @@
-/// <reference path="./index.d.ts" />
+/// <reference path="../index.d.ts" />
 
 import { StyleOptions, RuleOptions } from "gatsby-source-googlemaps-static";
 
 class Style {
     private _feature: string | undefined;
     private _element: string | undefined;
-    private _rules: Array<string>;
+    private _rules: Array<string> = [];
 
     public constructor(options: StyleOptions) {
         this._feature = options.feature;
@@ -42,15 +42,19 @@ class Style {
     }
 
     private set rules(newRules: RuleOptions) {
-        const rules = [];
+        const rules: Array<string> = [];
 
-        for (const key in newRules) {
+        Object.keys(newRules).forEach(key => {
             const isLastIdx = rules.length === Object.keys(newRules).length - 2;
-            const tmpRule = this.newOption(key, newRules[key], !isLastIdx);
+            const tmpRule = this.newOption(
+                key,
+                newRules[key] as string,
+                !isLastIdx
+            );
             if (tmpRule) {
                 rules.push(tmpRule);
             }
-        }
+        });
 
         this._rules = [...rules];
     }

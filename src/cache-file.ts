@@ -1,3 +1,5 @@
+import { Store, NodePluginArgs } from "gatsby";
+
 import crypto from "crypto";
 import Axios, { AxiosInstance } from "axios";
 
@@ -5,41 +7,30 @@ import createFile from "./create-file";
 
 abstract class CacheFile {
     protected _path: string | undefined;
-    protected _type: string;
+    protected _type = "";
 
-    private _axiosClient: AxiosInstance | undefined;
-    private _cache: {
-        get: (cacheId: string) => string;
-        set: (cacheId: string, path: string) => string;
-    };
+    private _axiosClient: AxiosInstance;
+    private _cache: NodePluginArgs["cache"];
 
-    private _hash: string;
-    private _guid: string;
-    private _cacheId: string;
-    private _isCached: boolean;
+    private _hash = "";
+    private _guid = "";
+    private _cacheId = "";
+    private _isCached = false;
 
-    protected constructor(
-        cache: {
-            get: (cacheId: string) => string;
-            set: (cacheId: string, path: string) => string;
-        },
-        hash: string
-    ) {
+    protected constructor(cache: NodePluginArgs["cache"], hash: string) {
         this._cache = cache;
         this.hash = hash;
 
         this.checkCache();
 
-        if (!this._isCached) {
-            this._axiosClient = Axios.create({
-                method: "GET",
-                responseType: "arraybuffer",
-            });
-        }
+        this._axiosClient = Axios.create({
+            method: "GET",
+            responseType: "arraybuffer",
+        });
     }
 
     protected async getPath(
-        store: { getState: () => Record<string, Record<string, string>> },
+        store: Store,
         url: string,
         ext: string
     ): Promise<{ path: string; hash: string }> {
@@ -63,11 +54,7 @@ abstract class CacheFile {
         return { path, hash: this._guid };
     }
 
-    private async createFile(
-        data: Buffer,
-        store: { getState: () => Record<string, Record<string, string>> },
-        ext: string
-    ) {
+    private async createFile(data: Buffer, store: Store, ext: string) {
         return createFile(data, store, ext, this._guid);
     }
 

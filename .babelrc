@@ -1,4 +1,6 @@
 {
+    "compact": true,
+    "comments": false,
     "presets": [
         "@babel/typescript",
         [

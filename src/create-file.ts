@@ -1,3 +1,5 @@
+import { Store } from "gatsby";
+
 import fs from "fs-extra";
 import path from "path";
 
@@ -10,7 +12,7 @@ const createFilePath = (directory: string, filename: string, ext: string) => {
 
 export default async (
     data: Buffer,
-    store: { getState: () => Record<string, Record<string, string>> },
+    store: Store,
     ext: string,
     id: string
 ): Promise<string> => {

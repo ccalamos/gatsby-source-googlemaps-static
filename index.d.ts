@@ -14,6 +14,7 @@ declare module "gatsby-source-googlemaps-static" {
         readonly styles?: Array<Record<string, unknown>> | string;
         readonly visible?: Array<string> | string;
         readonly query?: string;
+        nickname?: string;
         maps?: Array<Record<string, unknown>>;
         plugins?: unknown;
     }
@@ -43,6 +44,7 @@ declare module "gatsby-source-googlemaps-static" {
         readonly visibility?: string;
         readonly color?: string;
         readonly weight?: string;
+        [key: string]: RuleOptions[keyof RuleOptions];
     }
 
     export interface StyleOptions {

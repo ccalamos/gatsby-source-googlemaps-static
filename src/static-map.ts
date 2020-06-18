@@ -1,4 +1,4 @@
-/// <reference path="./index.d.ts" />
+/// <reference path="../index.d.ts" />
 
 import {
     MarkerOptions,
@@ -6,6 +6,7 @@ import {
     StyleOptions,
     ConfigOptions,
 } from "gatsby-source-googlemaps-static";
+import { Store, NodePluginArgs } from "gatsby";
 
 import ImageFile from "./image-file";
 import Marker from "./marker";
@@ -17,28 +18,33 @@ interface MapOptions {
     size: string;
     format: string;
     zoom?: string;
-    center?: string;
+    center: string;
     scale?: string;
     mapType?: string;
     client?: string;
-    markers?: Array<Marker> | string;
-    paths?: Array<Path> | string;
-    styles?: Array<Style> | string;
-    visible?: Array<string> | string;
+    markers: Array<Marker> | string;
+    paths: Array<Path> | string;
+    styles: Array<Style> | string;
+    visible: Array<string> | string;
     hasSecret?: boolean;
 }
 
 class StaticMap {
     // Private Helpers
-    private _file: ImageFile;
+    private _file: ImageFile | undefined;
     private _url: string;
     private _query: string | undefined;
-    private _store: unknown;
-    private _options: MapOptions;
+    private _store: Store;
+    private _options: MapOptions = {} as MapOptions;
     private _isImplicit = false;
 
-    public constructor(options: ConfigOptions, cache: unknown, store: unknown) {
+    public constructor(
+        options: ConfigOptions,
+        cache: NodePluginArgs["cache"],
+        store: Store
+    ) {
         this._store = store;
+        this._url = "";
         this.options = options;
         this._isImplicit = this.isImplicit();
 
@@ -49,16 +55,22 @@ class StaticMap {
     }
 
     public async getFilePath(
-        key: string | undefined,
+        key: string,
         secret: string | undefined = undefined
-    ): Promise<{ absolutePath: string; center: string; hash: string }> {
-        const keyOrClient = this._options.client ? this._options.client : key;
+    ): Promise<{
+        absolutePath: string;
+        center: string | undefined;
+        hash: string;
+    }> {
+        const keyOrClient: string = this._options.client
+            ? this._options.client
+            : key;
 
-        const { path, hash } = await this._file.getHref(
+        const { path, hash } = (await this._file?.getHref(
             this._store,
             keyOrClient,
             secret
-        );
+        )) || { path: "", hash: "" };
 
         return {
             absolutePath: path,
@@ -79,7 +91,7 @@ class StaticMap {
         );
     }
 
-    private set file(fileCache: unknown) {
+    private set file(fileCache: NodePluginArgs["cache"]) {
         this._file = new ImageFile(fileCache, this.getJSON());
     }
 
@@ -91,15 +103,39 @@ class StaticMap {
                 : `${newOptions.size}x${newOptions.size}`
             : "640x640";
 
-        this._options.markers = this.parseOption(newOptions.markers, "Marker");
-        this._options.paths = this.parseOption(newOptions.paths, "Path");
-        this._options.styles = this.parseOption(newOptions.styles, "Style");
-        this._options.visible = this.parseOption(newOptions.visible);
+        this._options.markers =
+            (this.parseOption(
+                newOptions.markers as
+                    | Array<MarkerOptions | PathOptions | StyleOptions | string>
+                    | string
+                    | Record<string, unknown>,
+                "Marker"
+            ) as Array<Marker> | string) || "";
+        this._options.paths =
+            (this.parseOption(
+                newOptions.paths as
+                    | Array<MarkerOptions | PathOptions | StyleOptions | string>
+                    | string
+                    | Record<string, unknown>,
+                "Path"
+            ) as Array<Path> | string) || "";
+        this._options.styles =
+            (this.parseOption(
+                newOptions.styles as
+                    | Array<MarkerOptions | PathOptions | StyleOptions | string>
+                    | string
+                    | Record<string, unknown>,
+                "Style"
+            ) as Array<Style> | string) || "";
+        this._options.visible =
+            (this.parseOption(newOptions.visible || "") as
+                | Array<string>
+                | string) || "";
 
         this._options.hasSecret = !!newOptions.secret;
         this._options.zoom = newOptions.zoom || "14";
         this._options.format = newOptions.format || "png";
-        this._options.center = newOptions.center;
+        this._options.center = newOptions.center || "";
         this._options.client = newOptions.clientID;
         this._options.scale = newOptions.scale;
         this._options.mapType = newOptions.mapType;
@@ -108,20 +144,21 @@ class StaticMap {
     private getJSON() {
         const options = {
             center: this._options.center,
-            hasSecret: this._options.hasSecret,
+            hasSecret: this._options.hasSecret || false,
             size: this._options.size,
             format: this._options.format,
             scale: this._options.scale,
             maptype: this._options.mapType,
-            markers: this.mapArray(this._options.markers),
-            visible: this.mapArray(this._options.visible),
-            style: this.mapArray(this._options.styles),
-            path: this.mapArray(this._options.paths),
-            client: this._options.client,
+            markers: this.mapArray(this._options.markers) || [],
+            visible: this.mapArray(this._options.visible) || [],
+            style: this.mapArray(this._options.styles) || [],
+            path: this.mapArray(this._options.paths) || [],
+            client: this._options.client || "",
+            zoom: this._options.zoom,
         };
 
-        if (!this._isImplicit) {
-            options["zoom"] = this._options.zoom;
+        if (this._isImplicit) {
+            delete options.zoom;
         }
 
         return options;
@@ -129,57 +166,55 @@ class StaticMap {
 
     private parseOption(
         options:
-            | Array<
-                  | Record<string, unknown>
-                  | MarkerOptions
-                  | PathOptions
-                  | StyleOptions
-                  | string
-              >
-            | string,
+            | Array<MarkerOptions | PathOptions | StyleOptions | string>
+            | string
+            | Record<string, unknown>
+            | undefined,
         classType?: string
     ) {
-        if (options) {
+        if (
+            options &&
+            (options instanceof Array || typeof options === "string")
+        ) {
             if (typeof options === "string") {
                 return options;
             }
 
-            let newOptions = [];
+            let newOptions = [] as Array<Marker | Path | Style | string>;
             options.forEach(
                 (
                     option: MarkerOptions | PathOptions | StyleOptions | string
                 ) => {
                     if (typeof option === "string") {
-                        newOptions = [...newOptions, option];
+                        newOptions = [...newOptions, option] as Array<string>;
                     } else {
                         switch (classType) {
                             case "Path":
                                 newOptions = [
                                     ...newOptions,
                                     new Path(option as PathOptions),
-                                ];
+                                ] as Array<Path>;
                                 break;
                             case "Marker":
                                 newOptions = [
                                     ...newOptions,
                                     new Marker(option as MarkerOptions),
-                                ];
+                                ] as Array<Marker>;
                                 break;
                             case "Style":
                                 newOptions = [
                                     ...newOptions,
                                     new Style(option as StyleOptions),
-                                ];
+                                ] as Array<Style>;
                                 break;
-                            default:
-                                newOptions = [...newOptions, option];
                         }
                     }
                 }
             );
 
-            return newOptions;
+            return newOptions || "";
         }
+        return "";
     }
 
     private mapArray(types: Array<string | Marker | Path | Style> | string) {
@@ -278,7 +313,7 @@ class StaticMap {
             return [...this._options.visible];
         }
 
-        return;
+        return [];
     }
 }
 

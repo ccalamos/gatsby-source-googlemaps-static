@@ -1,5 +1,7 @@
-/// <reference path="./index.d.ts" />
+/// <reference path="../index.d.ts" />
+/// <reference path="./gatsby-source-filesystem/create-file-node.d.ts" />
 import { ConfigOptions } from "gatsby-source-googlemaps-static";
+import { Store, NodePluginArgs } from "gatsby";
 
 import { createFileNode } from "gatsby-source-filesystem/create-file-node";
 
@@ -20,16 +22,16 @@ async function sourceNodes(
             ) => unknown;
         };
         createNodeId: (hash: string) => string;
-        createContentDigest: (datum) => unknown;
-        store: unknown;
-        cache: unknown;
+        createContentDigest: (datum: Record<string, string>) => unknown;
+        store: Store;
+        cache: NodePluginArgs["cache"];
     },
     configOptions: ConfigOptions
 ): Promise<void> {
     delete configOptions.plugins;
     const { createNode } = actions;
 
-    const processMap = async options => {
+    const processMap = async (options: ConfigOptions) => {
         const Map = new StaticMap(options, cache, store);
 
         const { absolutePath, center, hash } = await Map.getFilePath(
@@ -39,7 +41,7 @@ async function sourceNodes(
 
         const id = createNodeId(`google-maps-static-${hash}`);
 
-        const processNodes = async datum => {
+        const processNodes = async (datum: Record<string, string>) => {
             const fileNode = await createFileNode(
                 datum.absolutePath,
                 createNodeId,
@@ -73,7 +75,7 @@ async function sourceNodes(
 
         return await processNodes({
             absolutePath,
-            center,
+            center: center as string,
             hash,
             id,
             nickname: options.nickname || id,

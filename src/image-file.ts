@@ -1,3 +1,5 @@
+import { Store, NodePluginArgs } from "gatsby";
+
 import queryString from "query-string";
 
 import CacheFile from "./cache-file";
@@ -12,7 +14,7 @@ class ImageFile extends CacheFile {
     private _useClient = false;
 
     public constructor(
-        cache: unknown,
+        cache: NodePluginArgs["cache"],
         params: {
             hasSecret: boolean;
             markers: string | Array<string>;
@@ -65,7 +67,7 @@ class ImageFile extends CacheFile {
     }
 
     public async getHref(
-        store: unknown,
+        store: Store,
         keyOrClient: string,
         secret: string | undefined
     ): Promise<Record<string, string>> {
@@ -86,7 +88,7 @@ class ImageFile extends CacheFile {
         }
 
         if (this._useSignature) {
-            return this.generateSignature(url, secret);
+            return this.generateSignature(url, secret as string);
         }
 
         return url;
@@ -101,7 +103,8 @@ class ImageFile extends CacheFile {
         prependStr: Array<string> | string = "",
         appendStr: Array<string> | string = ""
     ) {
-        let pStr, aStr;
+        let pStr = "",
+            aStr = "";
 
         if (typeof prependStr === "string") {
             pStr = prependStr;

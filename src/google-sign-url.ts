@@ -59,7 +59,9 @@ function encodeBase64Hash(key: Buffer, data: string) {
 function sign(path: string, secret: string): string {
     const uri = url.parse(path);
     const safeSecret = decodeBase64Hash(removeWebSafe(secret));
-    const hashedSignature = makeWebSafe(encodeBase64Hash(safeSecret, uri.path));
+    const hashedSignature = makeWebSafe(
+        encodeBase64Hash(safeSecret, uri?.path as string)
+    );
     return url.format(uri) + "&signature=" + hashedSignature;
 }
 
