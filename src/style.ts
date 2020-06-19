@@ -16,13 +16,17 @@ class Style {
         }
     }
 
-    private newOption(key: string, value: string | undefined, next = false) {
+    private newOption(
+        key: string,
+        value: string | undefined,
+        next = false
+    ): string {
         return value
             ? `${key}:${value}${next ? encodeURIComponent("|") : ""}`
             : "";
     }
 
-    private generateParams() {
+    private generateParams(): string {
         let ruleStr = "";
 
         this._rules.forEach((rule, idx) => {

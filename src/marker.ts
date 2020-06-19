@@ -27,7 +27,7 @@ class Marker {
         color: string | undefined,
         size: string | undefined,
         label: string | undefined
-    ) {
+    ): string {
         return (
             this.generateEncoding("color", color) +
             this.generateEncoding("size", size) +
@@ -41,7 +41,7 @@ class Marker {
         location: string,
         icon: string,
         anchor: string | undefined
-    ) {
+    ): string {
         return (
             (anchor
                 ? this.generateEncoding("anchor", anchor.replace(/ /g, ""))
@@ -55,7 +55,7 @@ class Marker {
         key: string,
         value: string | undefined,
         next = true
-    ) {
+    ): string {
         if (!value) {
             return "";
         }

@@ -78,7 +78,7 @@ class ImageFile extends CacheFile {
         );
     }
 
-    private getUrl(keyOrClient: string, secret: string | undefined) {
+    private getUrl(keyOrClient: string, secret: string | undefined): string {
         let url = `${this.baseURL}?${this._params}`;
 
         if (this._useClient) {
@@ -94,7 +94,7 @@ class ImageFile extends CacheFile {
         return url;
     }
 
-    private generateSignature(url: string, secret: string) {
+    private generateSignature(url: string, secret: string): string {
         return signUrl(url, secret);
     }
 
@@ -102,7 +102,7 @@ class ImageFile extends CacheFile {
         options: Record<string, unknown>,
         prependStr: string[] | string = "",
         appendStr: string[] | string = ""
-    ) {
+    ): string {
         let pStr = "";
         let aStr = "";
 
@@ -129,7 +129,7 @@ class ImageFile extends CacheFile {
         );
     }
 
-    private parseArrayParams(options: string | string[], type: string) {
+    private parseArrayParams(options: string | string[], type: string): string {
         if (typeof options === "string") {
             return `${type}=${options}`;
         }

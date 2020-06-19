@@ -81,7 +81,7 @@ class StaticMap {
         return this._url;
     }
 
-    private isImplicit() {
+    private isImplicit(): boolean {
         return (
             (!this._options.center &&
                 (!!this._options.markers || !!this._options.paths)) ||
@@ -147,7 +147,15 @@ class StaticMap {
         this._options.mapType = newOptions.mapType;
     }
 
-    private getJSON() {
+    private getJSON(): {
+        hasSecret: boolean;
+        markers: string | string[];
+        visible: string | string[];
+        style: string | string[];
+        path: string | string[];
+        format: string;
+        client: string;
+    } {
         const options = {
             center: this._options.center,
             hasSecret: this._options.hasSecret || false,
@@ -180,7 +188,7 @@ class StaticMap {
             | Record<string, unknown>
             | undefined,
         classType?: string
-    ) {
+    ): string | string[] | Marker[] | Path[] | Style[] {
         if (
             options &&
             (options instanceof Array || typeof options === "string")
@@ -226,7 +234,9 @@ class StaticMap {
         return "";
     }
 
-    private mapArray(types: (string | Marker | Path | Style)[] | string) {
+    private mapArray(
+        types: (string | Marker | Path | Style)[] | string
+    ): string | string[] {
         if (typeof types === "string") {
             return types;
         }
@@ -240,7 +250,7 @@ class StaticMap {
         });
     }
 
-    private generateMapUrl() {
+    private generateMapUrl(): void {
         const baseUrl = "https://www.google.com/maps/";
         let url = baseUrl;
 
@@ -261,13 +271,13 @@ class StaticMap {
         this._url = url;
     }
 
-    private isCords() {
+    private isCords(): boolean {
         return (
             !this._query && RegExp(/^[^a-zA-Z]+$/).test(this._options.center)
         );
     }
 
-    private parseWayPoints() {
+    private parseWayPoints(): string {
         if (this._options.paths) {
             return typeof this._options.paths[0] === "string"
                 ? this._options.paths[0]
@@ -309,7 +319,7 @@ class StaticMap {
         return `origin=${origin}&destination=${destination}&waypoints=${wayPoints}`;
     }
 
-    private getWayPoints() {
+    private getWayPoints(): (string | Marker)[] {
         if (this._options.markers) {
             return [...this._options.markers];
         }

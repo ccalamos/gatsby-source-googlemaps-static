@@ -1,7 +1,7 @@
 import { Store, NodePluginArgs } from "gatsby";
 
 import crypto from "crypto";
-import Axios, { AxiosInstance } from "axios";
+import Axios, { AxiosInstance, AxiosResponse } from "axios";
 
 import createFile from "./create-file";
 
@@ -54,11 +54,15 @@ abstract class CacheFile {
         return { path, hash: this._guid };
     }
 
-    private async createFile(data: Buffer, store: Store, ext: string) {
+    private async createFile(
+        data: Buffer,
+        store: Store,
+        ext: string
+    ): Promise<string> {
         return createFile(data, store, ext, this._guid);
     }
 
-    private async downloadFile(url: string) {
+    private async downloadFile(url: string): Promise<AxiosResponse> {
         return await this._axiosClient.get(url);
     }
 
@@ -68,7 +72,7 @@ abstract class CacheFile {
         this._cacheId = `google-maps-static-cache-${this._guid}`;
     }
 
-    private async checkCache() {
+    private async checkCache(): Promise<void> {
         const cached = await this._cache.get(this._cacheId);
         this._isCached = !!cached;
 
@@ -77,15 +81,15 @@ abstract class CacheFile {
         }
     }
 
-    private async setCache(path: string) {
+    private async setCache(path: string): Promise<NodePluginArgs["cache"]> {
         return await this._cache.set(this._cacheId, path);
     }
 
-    private async fetchCache() {
+    private async fetchCache(): Promise<string> {
         return this._cache.get(this._cacheId);
     }
 
-    private generateGUID() {
+    private generateGUID(): string {
         return crypto.createHash("sha256").update(this._hash).digest("hex");
     }
 }

@@ -24,13 +24,13 @@ class Path {
         key: string,
         value: string | boolean | undefined,
         next = false
-    ) {
+    ): string {
         return value
             ? `${key}:${value}${next ? encodeURIComponent("|") : ""}`
             : "";
     }
 
-    private generateParams() {
+    private generateParams(): string {
         let pointsStr = "";
 
         this._points.forEach((point, idx) => {

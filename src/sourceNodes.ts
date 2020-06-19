@@ -29,7 +29,7 @@ async function sourceNodes(
     delete configOptions.plugins;
     const { createNode } = actions;
 
-    const processMap = async (options: ConfigOptions) => {
+    const processMap = async (options: ConfigOptions): Promise<void> => {
         const Map = new StaticMap(options, cache, store);
 
         const { absolutePath, center, hash } = await Map.getFilePath(
@@ -39,7 +39,9 @@ async function sourceNodes(
 
         const id = createNodeId(`google-maps-static-${hash}`);
 
-        const processNodes = async (datum: Record<string, string>) => {
+        const processNodes = async (
+            datum: Record<string, string>
+        ): Promise<void> => {
             const fileNode = await createFileNode(
                 datum.absolutePath,
                 createNodeId,

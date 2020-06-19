@@ -6,7 +6,11 @@ import path from "path";
 const CACHE_DIR = `.cache`;
 const FS_PLUGIN_DIR = `gatsby-source-googlemaps-static`;
 
-const createFilePath = (directory: string, filename: string, ext: string) => {
+const createFilePath = (
+    directory: string,
+    filename: string,
+    ext: string
+): string => {
     return path.join(directory, `${filename}${ext}`);
 };
 
