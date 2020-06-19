@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.12] - 2020-06-19
+
+Updated .ts files to have return types on every function.
+
+### Changed
+
+- Private functions now have return types
+
 ## [1.1.11] - 2020-06-18
 
 Fixed README.md badges to be parsed by NPM
