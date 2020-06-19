@@ -59,13 +59,13 @@ async function sourceNodes(
 
             const nodeContent = JSON.stringify(datum);
             const nodeMeta = {
+                children: [fileNode.id],
                 id,
                 parent: null,
-                children: [fileNode.id],
                 internal: {
-                    type: `StaticMap`,
                     content: nodeContent,
                     contentDigest: createContentDigest(datum),
+                    type: `StaticMap`,
                 },
             };
             const node = Object.assign({}, datum, nodeMeta);
@@ -78,8 +78,8 @@ async function sourceNodes(
             center: center as string,
             hash,
             id,
-            nickname: options.nickname || id,
             mapUrl: Map.url,
+            nickname: options.nickname || id,
         });
     };
 

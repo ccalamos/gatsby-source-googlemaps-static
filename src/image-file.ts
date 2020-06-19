@@ -6,7 +6,8 @@ import CacheFile from "./cache-file";
 import signUrl from "./google-sign-url";
 
 class ImageFile extends CacheFile {
-    readonly baseURL: string = "https://maps.googleapis.com/maps/api/staticmap";
+    private readonly baseURL: string =
+        "https://maps.googleapis.com/maps/api/staticmap";
 
     private _params: string;
     private _extension = ".png";

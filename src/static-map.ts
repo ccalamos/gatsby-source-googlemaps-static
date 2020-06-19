@@ -158,16 +158,16 @@ class StaticMap {
     } {
         const options = {
             center: this._options.center,
-            hasSecret: this._options.hasSecret || false,
-            size: this._options.size,
+            client: this._options.client || "",
             format: this._options.format,
-            scale: this._options.scale,
+            hasSecret: this._options.hasSecret || false,
             maptype: this._options.mapType,
             markers: this.mapArray(this._options.markers) || [],
-            visible: this.mapArray(this._options.visible) || [],
-            style: this.mapArray(this._options.styles) || [],
             path: this.mapArray(this._options.paths) || [],
-            client: this._options.client || "",
+            scale: this._options.scale,
+            size: this._options.size,
+            style: this.mapArray(this._options.styles) || [],
+            visible: this.mapArray(this._options.visible) || [],
             zoom: this._options.zoom,
         };
 
@@ -320,15 +320,11 @@ class StaticMap {
     }
 
     private getWayPoints(): (string | Marker)[] {
-        if (this._options.markers) {
-            return [...this._options.markers];
-        }
-
-        if (this._options.visible) {
-            return [...this._options.visible];
-        }
-
-        return [];
+        return this._options.markers
+            ? [...this._options.markers]
+            : this._options.visible
+            ? [...this._options.visible]
+            : [];
     }
 }
 
