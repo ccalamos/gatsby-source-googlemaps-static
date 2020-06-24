@@ -55,7 +55,7 @@
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
         "typecheck": "tsc --skipLibCheck --noEmit",
         "prepublishOnly": "cross-env NODE_ENV=production yarn run clean; cross-env NODE_ENV=production yarn run build",
-        "postpublish": "npm publish --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'"
+        "postpublish": "yarn publish --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'"
     },
     "peerDependencies": {
         "gatsby": "^2.2.0"
