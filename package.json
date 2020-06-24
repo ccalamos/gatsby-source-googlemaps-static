@@ -1,7 +1,7 @@
 {
     "name": "@ccalamos/gatsby-source-googlemaps-static",
     "description": "Gatsby source plugin for Google Maps Static API",
-    "version": "1.2.3",
+    "version": "1.3.0",
     "author": "Cole Calamos <cole@colejcalamos.com>",
     "bugs": {
         "url": "https://github.com/ccalamos/gatsby-source-googlemaps-static/issues"
@@ -23,13 +23,14 @@
     "license": "MIT",
     "devDependencies": {
         "@babel/cli": "^7.0.0",
-        "@babel/core": "^7.0.1",
+        "@babel/core": "^7.10.3",
         "@babel/node": "^7.0.0-beta.54",
         "@babel/plugin-proposal-class-properties": "^7.8.3",
         "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
-        "@babel/preset-env": "^7.9.6",
-        "@babel/preset-typescript": "^7.8.3",
+        "@babel/preset-env": "^7.10.3",
+        "@babel/preset-typescript": "^7.10.1",
         "@types/fs-extra": "^9.0.1",
+        "@types/jest": "^26.0.0",
         "@types/node": "^14.0.13",
         "@typescript-eslint/eslint-plugin": "^3.3.0",
         "@typescript-eslint/parser": "^3.3.0",
@@ -38,7 +39,9 @@
         "eslint": "^7.2.0",
         "eslint-config-prettier": "^6.11.0",
         "gatsby": "^2.2.0",
+        "jest": "^26.1.0",
         "prettier": "^2.0.5",
+        "ts-jest": "^26.1.1",
         "typescript": "^3.9.5"
     },
     "dependencies": {
@@ -53,6 +56,7 @@
         "format": "prettier --write \"{,!(node_modules)/**/}*.ts\"",
         "clean": "rm *.js",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+        "test": "jest",
         "typecheck": "tsc --skipLibCheck --noEmit",
         "prepublishOnly": "cross-env NODE_ENV=production yarn run clean; cross-env NODE_ENV=production yarn run build"
     },

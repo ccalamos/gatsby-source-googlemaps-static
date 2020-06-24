@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.0] - 2020-06-23
+
+Initial Jest Setup
+
+### Added
+
+- Added jest config files
+- Added test script
+
 ## [1.2.0 - 1.2.3] - 2020-06-23
 
 Updated workflows to publish to GitHub Packages Repo.

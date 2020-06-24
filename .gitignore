@@ -4,3 +4,4 @@ package-lock.json
 node_modules
 !index.d.ts
 *.log
+!jest.config.js
