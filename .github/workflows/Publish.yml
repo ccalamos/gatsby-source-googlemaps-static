@@ -12,8 +12,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm ci
-      - run: npm run build
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
 
   publish-npm:
     needs: build
@@ -24,8 +24,8 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish --access public
+      - run: yarn install --frozen-lockfile
+      - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.PUBLISH_NPM_TOKEN}}
 
@@ -39,8 +39,8 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
           scope: '@ccalamos'
-      - run: npm ci
+      - run: yarn install --frozen-lockfile
       - run: echo registry=https://npm.pkg.github.com/ccalamos >> .npmrc
-      - run: npm publish
+      - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.PUBLISH_GITHUB_TOKEN}}
