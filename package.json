@@ -54,8 +54,7 @@
         "clean": "rm *.js",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
         "typecheck": "tsc --skipLibCheck --noEmit",
-        "prepublishOnly": "cross-env NODE_ENV=production yarn run clean; cross-env NODE_ENV=production yarn run build",
-        "postpublish": "yarn publish --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'"
+        "prepublishOnly": "cross-env NODE_ENV=production yarn run clean; cross-env NODE_ENV=production yarn run build"
     },
     "peerDependencies": {
         "gatsby": "^2.2.0"
