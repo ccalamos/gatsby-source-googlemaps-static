@@ -44,7 +44,7 @@ In `gatsby-config.js`:
 module.exports = {
     plugins: [
         {
-            resolve: `gatsby-source-googlemaps-static`,
+            resolve: `@ccalamos/gatsby-source-googlemaps-static`,
             options: {
                 key: `YOUR_GOOGLE_MAPS_STATIC_API_KEY`,
                 center: `LATITUDE,LONGITUDE || CITY,REGION`,
@@ -67,7 +67,7 @@ The configuration options for this plugin are currently an expansive set of the 
 module.exports = {
     plugins: [
         {
-            resolve: `gatsby-source-googlemaps-static`,
+            resolve: `@ccalamos/gatsby-source-googlemaps-static`,
             options: {
                 key: `YOUR_GOOGLE_MAPS_STATIC_API_KEY`,
                 center: `LATITUDE,LONGITUDE || CITY,REGION`,
@@ -171,7 +171,7 @@ _A Very Simple Configuration Example_
 module.exports = {
     plugins: [
         {
-            resolve: "gatsby-source-googlemaps-static",
+            resolve: "@ccalamos/gatsby-source-googlemaps-static",
             options: {
                 key: process.env.GOOGLE_MAPS_STATIC_API_KEY,
                 center: "41.8781,-87.6298",
@@ -190,7 +190,7 @@ _Another Very Simple Configuration Example_
 module.exports = {
     plugins: [
         {
-            resolve: "gatsby-source-googlemaps-static",
+            resolve: "@ccalamos/gatsby-source-googlemaps-static",
             options: {
                 key: process.env.GOOGLE_MAPS_STATIC_API_KEY,
                 center: "Chicago, IL",
@@ -209,7 +209,7 @@ _An Implicit Mapping Configuration Example_
 module.exports = {
     plugins: [
         {
-            resolve: `gatsby-source-googlemaps-static`,
+            resolve: `@ccalamos/gatsby-source-googlemaps-static`,
             options: {
                 key: process.env.GOOGLE_MAPS_STATIC_API_KEY,
                 paths: [
@@ -240,7 +240,7 @@ _Signature Configuration Example (Using API KEY)_
 module.exports = {
     plugins: [
         {
-            resolve: `gatsby-source-googlemaps-static`,
+            resolve: `@ccalamos/gatsby-source-googlemaps-static`,
             options: {
                 key: process.env.GOOGLE_MAPS_STATIC_API_KEY,
                 secret: process.env.GOOGLE_MAPS_STATIC_SECRET,
@@ -260,7 +260,7 @@ _Signature Configuration Example (Using Client ID)_
 module.exports = {
     plugins: [
         {
-            resolve: `gatsby-source-googlemaps-static`,
+            resolve: `@ccalamos/gatsby-source-googlemaps-static`,
             options: {
                 clientID: process.env.GOOGLE_MAPS_STATIC_CLIENT_ID,
                 secret: process.env.GOOGLE_MAPS_STATIC_SECRET,
@@ -280,7 +280,7 @@ _Query Configuration Example_
 module.exports = {
     plugins: [
         {
-            resolve: `gatsby-source-googlemaps-static`,
+            resolve: `@ccalamos/gatsby-source-googlemaps-static`,
             options: {
                 key: process.env.GOOGLE_MAPS_STATIC_API_KEY,
                 center: `Chicago, IL`,
@@ -300,7 +300,7 @@ _Multiple Maps Example_
 module.exports = {
     plugins: [
         {
-            resolve: `gatsby-source-googlemaps-static`,
+            resolve: `@ccalamos/gatsby-source-googlemaps-static`,
             options: {
                 key: process.env.GOOGLE_MAPS_STATIC_API_KEY,
                 styles: [
