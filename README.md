@@ -8,7 +8,7 @@ __GSGS__ _(gatsby-source-googlemaps-static)_
 
 [![npm package](https://img.shields.io/npm/v/@ccalamos/gatsby-source-googlemaps-static.svg)](https://npmjs.com/@ccalamos/gatsby-source-googlemaps-static)
 [![Downloads](https://img.shields.io/npm/dm/@ccalamos/gatsby-source-googlemaps-static.svg)](https://npmjs.com/@ccalamos/gatsby-source-googlemaps-static)
-[![dependencies Status](https://david-dm.org/ccalamos/@ccalamos/gatsby-source-googlemaps-static/status.svg)](https://david-dm.org/ccalamos/@ccalamos/gatsby-source-googlemaps-static)
+[![dependencies Status](https://david-dm.org/ccalamos/gatsby-source-googlemaps-static/status.svg)](https://david-dm.org/ccalamos/gatsby-source-googlemaps-static)
 [![npm type definitions](https://img.shields.io/npm/types/@ccalamos/gatsby-source-googlemaps-static.svg)](https://www.typescriptlang.org/)
 [![DeepScan grade](https://deepscan.io/api/teams/9777/projects/12370/branches/190219/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9777&pid=12370&bid=190219)
 [![Code Inspector grade](https://www.code-inspector.com/project/9641/score/svg)](https://frontend.code-inspector.com/public/project/9641/gatsby-source-googlemaps-static/dashboard)
