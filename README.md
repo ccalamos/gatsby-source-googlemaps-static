@@ -76,6 +76,7 @@ module.exports = {
                 scale: `SCALE_VALUE`,
                 format: `IMAGE_EXTENSION`,
                 mapType: `MAP_FORMAT`,
+                mapID: `CLOUD_BASED_STYLE_MAP_ID`,
                 styles:
                     [
                         {
@@ -146,6 +147,7 @@ module.exports = {
 | `scale`    |           | The scale value for the map returned by Google.                                                                                                                 |
 | `format`   | `png`     | The file format and extension for the image.                                                                                                                    |
 | `mapType`  |           | The type of map that Google should use to render the image.                                                                                                     |
+| `mapID`  |           | The ID from [Google Cloud Based Maps](https://developers.google.com/maps/documentation/maps-static/cloud-based-map-styling).                                                                                                     |
 | `clientID` |           | **[required\*\*]** The client ID from [Google Cloud Platform Console](https://console.cloud.google.com/projectselector/apis/).                                  | This field is not required when using `key` field.                                                                                                                                                                                                                 |
 | `secret`   |           | **[required\*]** The modified base64 secret from [Google Cloud Platform Console](https://console.cloud.google.com/projectselector/apis/) used for signing URLs. | This field is only required when attempting to create a [signature](https://developers.google.com/maps/documentation/maps-static/get-api-key).                                                                                                                     |
 | `query`    |           | A custom query to replace your center for the generated map URL.                                                                                                |
@@ -332,7 +334,17 @@ module.exports = {
 };
 ```
 
-
+__Cloud Based Map Style ID__
+```js
+{
+    resolve: `@ccalamos/gatsby-source-googlemaps-static`,
+    options: {
+        key: process.env.GOOGLE_MAPS_STATIC_API_KEY,
+        center: `Chicago, IL`,
+        mapID: `8f348d1b5a61d4bb`
+    },
+},
+```
 
 
 ### GraphQl Queries

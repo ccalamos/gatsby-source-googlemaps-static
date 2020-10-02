@@ -14,6 +14,7 @@ declare module "gatsby-source-googlemaps-static" {
         readonly styles?: Record<string, unknown>[] | string;
         readonly visible?: string[] | string;
         readonly query?: string;
+        readonly mapID?: string;
         nickname?: string;
         maps?: Record<string, unknown>[];
         plugins?: unknown;

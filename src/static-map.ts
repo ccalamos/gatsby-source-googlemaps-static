@@ -19,6 +19,7 @@ interface MapOptions {
     center: string;
     scale?: string;
     mapType?: string;
+    mapID?: string;
     client?: string;
     markers: Marker[] | string;
     paths: Path[] | string;
@@ -145,6 +146,7 @@ class StaticMap {
         this._options.client = newOptions.clientID;
         this._options.scale = newOptions.scale;
         this._options.mapType = newOptions.mapType;
+        this._options.mapID = newOptions.mapID;
     }
 
     private getJSON(): {
@@ -161,6 +163,7 @@ class StaticMap {
             client: this._options.client || "",
             format: this._options.format,
             hasSecret: this._options.hasSecret || false,
+            map_id: this._options.mapID,
             maptype: this._options.mapType,
             markers: this.mapArray(this._options.markers) || [],
             path: this.mapArray(this._options.paths) || [],
