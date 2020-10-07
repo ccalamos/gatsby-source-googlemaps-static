@@ -30,7 +30,9 @@ describe('path', () => {
             const result = path.urlParams;
             expect(result).toEqual("")
         });
+    });
 
+    describe('urlParams parameters', () => {
         it('with weight', () => {
             const path = new Path({
                 weight: '5',
