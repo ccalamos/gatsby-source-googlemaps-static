@@ -1,6 +1,6 @@
 declare module "gatsby-source-googlemaps-static" {
     export interface ConfigOptions {
-        readonly key: string;
+        readonly key?: string;
         readonly center?: string;
         readonly zoom?: string;
         readonly size?: string;

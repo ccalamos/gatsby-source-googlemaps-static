@@ -32,6 +32,10 @@ async function sourceNodes(
     const processMap = async (options: ConfigOptions): Promise<void> => {
         const Map = new StaticMap(options, cache, store);
 
+        if (!configOptions.key) {
+            throw new Error('Must provide an API key for Google Maps Static.');
+        }
+
         const { absolutePath, center, hash } = await Map.getFilePath(
             configOptions.key,
             configOptions.secret

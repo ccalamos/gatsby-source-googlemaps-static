@@ -1,6 +1,6 @@
 import { Store, NodePluginArgs } from "gatsby";
 
-import queryString from "query-string";
+import queryString, { Stringifiable } from "query-string";
 
 import CacheFile from "./cache-file";
 import signUrl from "./google-sign-url";
@@ -17,18 +17,18 @@ class ImageFile extends CacheFile {
     public constructor(
         cache: NodePluginArgs["cache"],
         params: {
-            hasSecret: boolean;
-            markers: string | string[];
-            visible: string | string[];
-            style: string | string[];
-            path: string | string[];
+            hasSecret?: boolean;
+            markers?: string | string[];
+            visible?: string | string[];
+            style?: string | string[];
+            path?: string | string[];
             format: string;
             client: string;
         }
     ) {
         super(cache, queryString.stringify(params));
 
-        this._useSignature = params.hasSecret;
+        this._useSignature = params.hasSecret || false;
         delete params.hasSecret;
 
         let appendStr = "";
@@ -100,7 +100,7 @@ class ImageFile extends CacheFile {
     }
 
     private generateParams(
-        options: Record<string, unknown>,
+        options: Record<string, string | number | boolean | Stringifiable[] | null | undefined>,
         prependStr: string[] | string = "",
         appendStr: string[] | string = ""
     ): string {
