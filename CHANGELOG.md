@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.4.2 - 1.4.7] - 2020-10-08
+
+Added coverage tests and refactored style & path
+
+### Changed
+
+- Removed `next` param in new_options in style.ts
+- Removed `next` param in new_options in path.ts
+- Removed `next` param in new_options in marker.ts
+
+### Added
+
+- Complete coverage test for style.ts
+- Complete coverage test for path.ts
+
+### Fixed
+
+- SECURITY.md supported versions
+- Dependency's versions
+- Alphabetical order on objects
+
 ## [1.4.1] - 2020-10-02
 
 Added Cloud Based Map Style Support
