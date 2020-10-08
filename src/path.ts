@@ -22,12 +22,9 @@ class Path {
 
     private newOption(
         key: string,
-        value: string | boolean | undefined,
-        next = false
+        value: string | boolean | undefined
     ): string {
-        return value
-            ? `${key}:${value}${next ? encodeURIComponent("|") : ""}`
-            : "";
+        return value ? `${key}:${value}${encodeURIComponent("|")}` : "";
     }
 
     private generateParams(): string {
@@ -41,10 +38,10 @@ class Path {
         });
 
         return (
-            this.newOption("weight", this._weight, true) +
-            this.newOption("color", this._color, true) +
-            this.newOption("fillcolor", this._fillColor, true) +
-            this.newOption("geodesic", this._geoDesic, true) +
+            this.newOption("weight", this._weight) +
+            this.newOption("color", this._color) +
+            this.newOption("fillcolor", this._fillColor) +
+            this.newOption("geodesic", this._geoDesic) +
             pointsStr
         );
     }

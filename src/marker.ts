@@ -51,18 +51,14 @@ class Marker {
         );
     }
 
-    private generateEncoding(
-        key: string,
-        value: string | undefined,
-        next = true
-    ): string {
+    private generateEncoding(key: string, value: string | undefined): string {
         if (!value) {
             return "";
         }
 
-        return `${encodeURIComponent(key)}:${encodeURIComponent(value)}${
-            next ? encodeURIComponent("|") : ""
-        }`;
+        return `${encodeURIComponent(key)}:${encodeURIComponent(
+            value
+        )}${encodeURIComponent("|")}`;
     }
 
     get urlParams(): string {

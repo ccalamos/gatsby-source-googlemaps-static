@@ -16,29 +16,20 @@ class Style {
         }
     }
 
-    private newOption(
-        key: string,
-        value: string | undefined,
-        next = false
-    ): string {
-        return value
-            ? `${key}:${value}${next ? encodeURIComponent("|") : ""}`
-            : "";
+    private newOption(key: string, value: string | undefined): string {
+        return value ? `${key}:${value}${encodeURIComponent("|")}` : "";
     }
 
     private generateParams(): string {
-        let ruleStr = "";
-
-        this._rules.forEach((rule, idx) => {
-            ruleStr += rule;
-            if (idx !== this._rules.length - 1) {
-                ruleStr += encodeURIComponent("|");
-            }
-        });
+        const ruleStr = this._rules.length
+            ? this._rules.reduce(
+                  (acc, cur) => `${acc}${encodeURIComponent("|")}${cur}`
+              )
+            : "";
 
         return (
-            this.newOption("feature", this._feature, true) +
-            this.newOption("element", this._element, true) +
+            this.newOption("feature", this._feature) +
+            this.newOption("element", this._element) +
             ruleStr
         );
     }
@@ -47,14 +38,8 @@ class Style {
         const rules: string[] = [];
 
         Object.keys(newRules).forEach((key) => {
-            const isLastIdx = rules.length === Object.keys(newRules).length - 2;
-            const tmpRule = this.newOption(
-                key,
-                newRules[key] as string,
-                !isLastIdx
-            );
-            if (tmpRule) {
-                rules.push(tmpRule);
+            if (newRules[key] as string) {
+                rules.push(`${key}:${newRules[key] as string}`);
             }
         });
 

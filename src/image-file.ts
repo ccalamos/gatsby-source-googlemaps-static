@@ -100,7 +100,10 @@ class ImageFile extends CacheFile {
     }
 
     private generateParams(
-        options: Record<string, string | number | boolean | Stringifiable[] | null | undefined>,
+        options: Record<
+            string,
+            string | number | boolean | Stringifiable[] | null | undefined
+        >,
         prependStr: string[] | string = "",
         appendStr: string[] | string = ""
     ): string {
