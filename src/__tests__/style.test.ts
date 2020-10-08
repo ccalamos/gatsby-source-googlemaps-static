@@ -13,10 +13,11 @@ describe("style", () => {
     it("urlParams with rules", () => {
         const style = new Style({
             rules: {
-                color: "0x00000000",
-                weight: "5",
                 blank: "",
-                anotherBlank: "",
+                color: "0x00000000",
+                dBlank: "",
+                weight: "5",
+                zBlank: "",
             },
         });
 

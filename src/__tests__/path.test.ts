@@ -37,8 +37,8 @@ describe("path", () => {
     describe("urlParams parameters", () => {
         it("with weight", () => {
             const path = new Path({
-                weight: "5",
                 points: [],
+                weight: "5",
             });
 
             const expected = `weight:${encodeURIComponent("5|")}`;
