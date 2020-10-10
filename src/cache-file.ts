@@ -1,7 +1,7 @@
 import { Store, NodePluginArgs } from "gatsby";
 
 import crypto from "crypto";
-import Axios, { AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 
 import createFile from "./create-file";
 
@@ -9,7 +9,6 @@ abstract class CacheFile {
     protected _path: string | undefined;
     protected _type = "";
 
-    private _axiosClient: AxiosInstance;
     private _cache: NodePluginArgs["cache"];
 
     private _hash = "";
@@ -22,11 +21,6 @@ abstract class CacheFile {
         this.hash = hash;
 
         this.checkCache();
-
-        this._axiosClient = Axios.create({
-            method: "GET",
-            responseType: "arraybuffer",
-        });
     }
 
     protected async getPath(
@@ -63,7 +57,10 @@ abstract class CacheFile {
     }
 
     private async downloadFile(url: string): Promise<AxiosResponse> {
-        return await this._axiosClient.get(url);
+        return await axios.get(url, {
+            method: "GET",
+            responseType: "arraybuffer",
+        });
     }
 
     private set hash(newHash: string) {
