@@ -1,7 +1,7 @@
 {
     "name": "@ccalamos/gatsby-source-googlemaps-static",
     "description": "Gatsby source plugin for Google Maps Static API",
-    "version": "1.4.7",
+    "version": "1.4.8",
     "author": "Cole Calamos <cole@colejcalamos.com>",
     "bugs": {
         "url": "https://github.com/ccalamos/gatsby-source-googlemaps-static/issues"
@@ -52,13 +52,14 @@
     },
     "scripts": {
         "build": "babel src --out-dir . --extensions '.ts'",
-        "watch": "babel src --watch --out-dir . --ignore **/__tests__ --extensions '.ts'",
+        "clean": "find -E . -not -name \"jest.config.js\" -iname \"[a-z]*.js\" -maxdepth 1 -delete && rm -rf coverage",
+        "test:coverage": "jest --collect-coverage",
         "format": "prettier --write \"{,!(node_modules)/**/}*.ts\"",
-        "clean": "find -E . -not -name \"jest.config.js\" -iname \"[a-z]*.js\" -maxdepth 1 -delete",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+        "prepublishOnly": "cross-env NODE_ENV=production yarn run clean; cross-env NODE_ENV=production yarn run build",
         "test": "jest",
         "typecheck": "tsc --skipLibCheck --noEmit",
-        "prepublishOnly": "cross-env NODE_ENV=production yarn run clean; cross-env NODE_ENV=production yarn run build"
+        "watch": "babel src --watch --out-dir . --ignore **/__tests__ --extensions '.ts'"
     },
     "peerDependencies": {
         "gatsby": "^2.24.69"
