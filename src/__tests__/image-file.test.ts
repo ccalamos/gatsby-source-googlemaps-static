@@ -1,8 +1,10 @@
 import ImageFile from '../image-file';
 import {GatsbyCache, NodePluginArgs, Store} from 'gatsby';
-import axios, {AxiosResponse} from 'axios';
+import {mocked } from 'ts-jest/utils';
+import mockAxios, {AxiosResponse} from 'axios';
+import fsExtra from 'fs-extra';
 
-jest.mock('axios');
+jest.mock('fs-extra');
 
 describe('image-file', () => {
     const state = {
@@ -41,14 +43,14 @@ describe('image-file', () => {
 
         it('with all params', async () => {
             const axiosResponse: AxiosResponse = {
-                data: {},
+                data: Buffer.from("jest-coverage-testing", 'utf8'),
                 status: 200,
                 statusText: "OK",
                 config: {},
                 headers: {}
             };
 
-            jest.spyOn(axios, "get").mockResolvedValueOnce(axiosResponse);
+            jest.spyOn(fsExtra, 'writeFile');
 
             params = {
                 hasSecret: false,
@@ -59,9 +61,16 @@ describe('image-file', () => {
                 format: "test-format",
                 client: "test-client",
             };
+            mocked(mockAxios.get).mockImplementationOnce(() =>
+                Promise.resolve(axiosResponse),
+            );
+
             const imageFile = new ImageFile(cache, params);
 
             const result = await imageFile.getHref(store, "", "")
+
+            expect(mockAxios.get).toHaveBeenCalledTimes(1);
+            expect(fsExtra.writeFile).toHaveBeenCalled();
 
             expect(result.hash).toMatch(/client=test-client&/);
             expect(result.hash).toMatch(/format=test-format&/);
