@@ -52,7 +52,7 @@
     },
     "scripts": {
         "build": "babel src --out-dir . --extensions '.ts'",
-        "clean": "find -E . -not -name \"jest.config.js\" -iname \"[a-z]*.js\" -maxdepth 1 -delete",
+        "clean": "find -E . -not -name \"jest.config.js\" -iname \"[a-z]*.js\" -maxdepth 1 -delete && rm -rf coverage",
         "test:coverage": "jest --collect-coverage",
         "format": "prettier --write \"{,!(node_modules)/**/}*.ts\"",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",

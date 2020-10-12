@@ -1,16 +1,16 @@
-import ImageFile from '../image-file';
-import {GatsbyCache, NodePluginArgs, Store} from 'gatsby';
-import {mocked } from 'ts-jest/utils';
-import mockAxios, {AxiosResponse} from 'axios';
-import fsExtra from 'fs-extra';
+import ImageFile from "../image-file";
+import { GatsbyCache, NodePluginArgs, Store } from "gatsby";
+import { mocked } from "ts-jest/utils";
+import mockAxios, { AxiosResponse } from "axios";
+import fsExtra from "fs-extra";
 
-jest.mock('fs-extra');
+jest.mock("fs-extra");
 
-describe('image-file', () => {
+describe("image-file", () => {
     const state = {
         program: {
-            directory: '.'
-        }
+            directory: ".",
+        },
     };
 
     const store: Store = {
@@ -20,7 +20,7 @@ describe('image-file', () => {
         replaceReducer: jest.fn(),
     };
 
-    const cache: NodePluginArgs["cache"] = new class implements GatsbyCache {
+    const cache: NodePluginArgs["cache"] = new (class implements GatsbyCache {
         get(): Promise<unknown> {
             return Promise.resolve(undefined);
         }
@@ -28,9 +28,9 @@ describe('image-file', () => {
         set(): Promise<unknown> {
             return Promise.resolve(undefined);
         }
-    };
+    })();
 
-    describe('getHref', () => {
+    describe("getHref", () => {
         let params: {
             hasSecret: boolean;
             markers: string | string[];
@@ -41,16 +41,16 @@ describe('image-file', () => {
             client: string;
         };
 
-        it('with all params', async () => {
+        it("with all params", async () => {
             const axiosResponse: AxiosResponse = {
-                data: Buffer.from("jest-coverage-testing", 'utf8'),
+                data: Buffer.from("jest-coverage-testing", "utf8"),
                 status: 200,
                 statusText: "OK",
                 config: {},
-                headers: {}
+                headers: {},
             };
 
-            jest.spyOn(fsExtra, 'writeFile');
+            jest.spyOn(fsExtra, "writeFile");
 
             params = {
                 hasSecret: false,
@@ -62,12 +62,12 @@ describe('image-file', () => {
                 client: "test-client",
             };
             mocked(mockAxios.get).mockImplementationOnce(() =>
-                Promise.resolve(axiosResponse),
+                Promise.resolve(axiosResponse)
             );
 
             const imageFile = new ImageFile(cache, params);
 
-            const result = await imageFile.getHref(store, "", "")
+            const result = await imageFile.getHref(store, "", "");
 
             expect(mockAxios.get).toHaveBeenCalledTimes(1);
             expect(fsExtra.writeFile).toHaveBeenCalled();
