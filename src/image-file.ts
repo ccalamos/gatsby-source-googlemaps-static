@@ -73,17 +73,21 @@ class ImageFile extends CacheFile {
     );
   }
 
-  private stringify(options: Partial<ImageFileOptions> & { key?: string; client?: string }) {
-    Object.keys(options).forEach((key) => ((typeof options[key] !== 'string' || options[key] === '') && delete options[key]));
+  private stringify(
+    options: Partial<ImageFileOptions> & { key?: string; client?: string },
+  ) {
+    Object.keys(options).forEach(
+      (key) =>
+        (typeof options[key] !== "string" || !options[key]) &&
+        delete options[key],
+    );
     return queryString.stringify(options);
   }
 
   private parseArrayParams(type: string, options?: string[]): string {
-    return !options ?
-      "" :
-      options
-        .map((option) => `${type}=${option}`)
-        .join("&");
+    return !options
+      ? ""
+      : options.map((option) => `${type}=${option}`).join("&");
   }
 }
 

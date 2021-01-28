@@ -79,7 +79,10 @@ class StaticMap
   }
 
   private isImplicit(): boolean {
-    return (!this.center && !this.isEmpty(this.markers ?? this.paths)) || !this.isEmpty(this.visible);
+    return (
+      (!this.center && !this.isEmpty(this.markers ?? this.paths)) ||
+      !this.isEmpty(this.visible)
+    );
   }
 
   private isEmpty(arr?: Stringable[]): boolean {
@@ -88,19 +91,19 @@ class StaticMap
 
   private getImageJSON(): ImageFileOptions {
     return {
+      baseUrl: this.url,
       clientID: this.clientID ?? "",
       format: this.format,
       hasSecret: this.hasSecret ?? false,
+      map_id: this.mapID,
+      mapType: this.mapType,
       markers: this.mapArray(this.markers ?? []),
       paths: this.mapArray(this.paths ?? []),
+      scale: this.scale,
+      size: this.size,
       styles: this.mapArray(this.styles ?? []),
       visible: this.mapArray(this.visible ?? []),
-      baseUrl: this.url,
-      size: this.size,
       zoom: this.isImplicit() ? "" : this.zoom,
-      scale: this.scale,
-      mapType: this.mapType,
-      map_id: this.mapID,
     };
   }
 
@@ -118,9 +121,9 @@ class StaticMap
     return `https://www.google.com/maps/api/staticmap?${
       this.isImplicit() ? this.parseWayPoints() : ""
     }${
-      this.center || this.query ?
-      `center=${encodeURIComponent(this.center ?? this.query)}` :
-      ""
+      this.center || this.query
+        ? `center=${encodeURIComponent(this.center ?? this.query)}`
+        : ""
     }`;
   }
 

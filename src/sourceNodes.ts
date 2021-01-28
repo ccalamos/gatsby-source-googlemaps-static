@@ -33,7 +33,7 @@ const processNodes = async (
     },
   };
   const node = Object.assign({}, datum, nodeMeta);
-
+  console.log("HERE!");
   await createNode(node);
 };
 
@@ -63,7 +63,9 @@ export default async function sourceNodes(
   if (!config.key)
     throw new Error("Must provide an API key for Google Maps Static.");
 
-  return await ((config.maps ?? [config]).forEach(
-    async (map) => await processMap(pluginArgs, { ...config, ...map }),
-  ));
+  for (const map of config.maps ?? [config]) {
+    await processMap(pluginArgs, { ...config, ...map });
+  }
+
+  return;
 }

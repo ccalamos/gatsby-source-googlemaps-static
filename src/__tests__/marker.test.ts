@@ -4,10 +4,10 @@ describe("marker", () => {
   describe("urlParams", () => {
     it("with all options", () => {
       const options = {
-        location: "test-location",
         color: "test-color",
-        size: "test-size",
         label: "test-label",
+        location: "test-location",
+        size: "test-size",
       };
       const marker = new Marker(options);
       const expected =
@@ -23,8 +23,8 @@ describe("marker", () => {
 
     it("with icon only ", () => {
       const options = {
-        location: "test-location",
         icon: "test-icon",
+        location: "test-location",
       };
       const marker = new Marker(options);
       expect(marker.toString()).toEqual(
@@ -34,9 +34,9 @@ describe("marker", () => {
 
     it("with icon and anchor", () => {
       const options = {
-        location: "test-location",
-        icon: "test-icon",
         anchor: "test anchor",
+        icon: "test-icon",
+        location: "test-location",
       };
       const marker = new Marker(options);
       const expected =

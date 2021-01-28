@@ -14,17 +14,17 @@ const state = {
 
 const store: Store = {
   dispatch: jest.fn(),
-  subscribe: jest.fn(),
   getState: () => state,
   replaceReducer: jest.fn(),
+  subscribe: jest.fn(),
 };
 
 const cache: NodePluginArgs["cache"] = new (class implements GatsbyCache {
-  get(): Promise<unknown> {
+  public get(): Promise<unknown> {
     return Promise.resolve(undefined);
   }
 
-  set(): Promise<unknown> {
+  public set(): Promise<unknown> {
     return Promise.resolve(undefined);
   }
 })();
@@ -32,34 +32,34 @@ const cache: NodePluginArgs["cache"] = new (class implements GatsbyCache {
 describe("image-file", () => {
   describe("getHref", () => {
     let params: {
+      client: string;
+      format: string;
       hasSecret: boolean;
       markers: string[];
-      visible: string[];
-      style: string[];
       path: string[];
-      format: string;
-      client: string;
+      style: string[];
+      visible: string[];
     };
 
     it("with all params", async () => {
       const axiosResponse: AxiosResponse = {
+        config: {},
         data: Buffer.from("jest-coverage-testing", "utf8"),
+        headers: {},
         status: 200,
         statusText: "OK",
-        config: {},
-        headers: {},
       };
 
       jest.spyOn(fsExtra, "writeFile");
 
       params = {
+        client: "test-client",
+        format: "test-format",
         hasSecret: false,
         markers: ["test-markers"],
-        visible: ["test-visible"],
-        style: ["test-style"],
         path: ["test-path"],
-        format: "test-format",
-        client: "test-client",
+        style: ["test-style"],
+        visible: ["test-visible"],
       };
       mocked(mockAxios.get).mockImplementationOnce(() =>
         Promise.resolve(axiosResponse),
