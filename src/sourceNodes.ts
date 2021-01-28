@@ -39,7 +39,7 @@ const processNodes = async (
 
 const processMap = async (
   { createNodeId, store, cache, ...plugingArgs }: NodePluginArgs,
-  options: Omit<ConfigOptions, "maps">,
+  options: Omit<ConfigOptions, "maps" | "plugins">,
 ): Promise<void> => {
   const GeneratedMap = new StaticMap(options, cache, store);
   const filePath = await GeneratedMap.getFilePath(options.key, options.secret);
@@ -60,7 +60,7 @@ export default async function sourceNodes(
   pluginArgs: NodePluginArgs,
   config: ConfigOptions,
 ): Promise<void> {
-  if (config.key)
+  if (!config.key)
     throw new Error("Must provide an API key for Google Maps Static.");
 
   return await ((config.maps ?? [config]).forEach(

@@ -6,9 +6,7 @@ import CacheFile from "./cache-file";
 import signUrl from "./google-sign-url";
 
 class ImageFile extends CacheFile {
-  private readonly baseURL: string =
-    "https://maps.googleapis.com/maps/api/staticmap";
-
+  private baseURL?: string;
   private options: string;
   private extension = ".png";
   private useSignature = false;
@@ -20,8 +18,9 @@ class ImageFile extends CacheFile {
   ) {
     super(cache, queryString.stringify(options));
 
-    this.useSignature = options.hasSecret || false;
-    delete options.hasSecret;
+    this.baseURL = options.baseUrl;
+    this.useSignature = options.hasSecret;
+    delete options["baseUrl"];
 
     let appendStr = "";
 
@@ -48,7 +47,7 @@ class ImageFile extends CacheFile {
   }
 
   private getUrl(keyOrClient: string, secret?: string): string {
-    const url = `${this.baseURL}?${this.options}`;
+    const url = `${this.baseURL}&${this.options}`;
     const formatted_url = this.useClient
       ? this.generateParams({ client: keyOrClient }, url)
       : this.generateParams({ key: keyOrClient }, url);
@@ -69,20 +68,22 @@ class ImageFile extends CacheFile {
   ): string {
     return (
       (prependStr ? `${prependStr}&` : "") +
-      queryString.stringify(options) +
+      this.stringify(options) +
       (appendStr ? `&${appendStr}` : "")
     );
   }
 
+  private stringify(options: Partial<ImageFileOptions> & { key?: string; client?: string }) {
+    Object.keys(options).forEach((key) => ((typeof options[key] !== 'string' || options[key] === '') && delete options[key]));
+    return queryString.stringify(options);
+  }
+
   private parseArrayParams(type: string, options?: string[]): string {
-    return !options
-      ? ""
-      : options
-          .slice(1)
-          .reduce(
-            (acc, option) => `${acc}&${type}=${option}`,
-            options.length > 1 ? `${type}=${options[0]}` : "",
-          );
+    return !options ?
+      "" :
+      options
+        .map((option) => `${type}=${option}`)
+        .join("&");
   }
 }
 

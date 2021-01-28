@@ -9,29 +9,30 @@ interface NodeDatum {
 }
 
 interface ImageFileOptions {
-  format: string;
-  hasSecret?: boolean;
+  format?: string;
+  hasSecret: boolean;
   clientID?: string;
   markers?: string[];
   paths?: string[];
   styles?: string[];
   visible?: string[];
-  [key: string]: string | string[] | boolean;
+  baseUrl?: string;
+  [key: string]: string | string[] | boolean | undefined;
 }
 
 interface MapOptions
   extends Pick<ImageFileOptions, "format" | "hasSecret" | "clientID"> {
   nickname?: string;
-  size: string;
+  size?: string;
   zoom?: string;
-  center: string;
+  center?: string;
   scale?: string;
   mapType?: string;
   mapID?: string;
-  markers: MarkerOptions[];
-  paths: PathOptions[];
-  styles: StyleOptions[];
-  visible: string[];
+  markers?: MarkerOptions[];
+  paths?: PathOptions[];
+  styles?: StyleOptions[];
+  visible?: string[];
 }
 
 interface ConfigOptions extends Readonly<Omit<MapOptions, "hasSecret">> {

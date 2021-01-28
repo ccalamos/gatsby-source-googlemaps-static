@@ -16,7 +16,7 @@ class StaticMap
   public mapType?: string;
   public mapID?: string;
   public clientID?: string;
-  public hasSecret?: boolean;
+  public hasSecret: boolean;
   public url: string;
 
   private store: Store;
@@ -51,8 +51,8 @@ class StaticMap
     this.mapType = options.mapType;
     this.mapID = options.mapID;
     this.query = options.query;
-    this.file = new ImageFile(cache, this.getImageJSON());
     this.url = this.generateMapUrl();
+    this.file = new ImageFile(cache, this.getImageJSON());
   }
 
   public async getFilePath(
@@ -79,7 +79,11 @@ class StaticMap
   }
 
   private isImplicit(): boolean {
-    return (!this.center && (!!this.markers || !!this.paths)) || !!this.visible;
+    return (!this.center && !this.isEmpty(this.markers ?? this.paths)) || !this.isEmpty(this.visible);
+  }
+
+  private isEmpty(arr?: Stringable[]): boolean {
+    return arr ? !arr.length : true;
   }
 
   private getImageJSON(): ImageFileOptions {
@@ -88,9 +92,15 @@ class StaticMap
       format: this.format,
       hasSecret: this.hasSecret ?? false,
       markers: this.mapArray(this.markers ?? []),
-      path: this.mapArray(this.paths ?? []),
-      style: this.mapArray(this.styles ?? []),
+      paths: this.mapArray(this.paths ?? []),
+      styles: this.mapArray(this.styles ?? []),
       visible: this.mapArray(this.visible ?? []),
+      baseUrl: this.url,
+      size: this.size,
+      zoom: this.isImplicit() ? "" : this.zoom,
+      scale: this.scale,
+      mapType: this.mapType,
+      map_id: this.mapID,
     };
   }
 
@@ -106,9 +116,11 @@ class StaticMap
 
   private generateMapUrl(): string {
     return `https://www.google.com/maps/api/staticmap?${
-      this.isImplicit()
-        ? this.parseWayPoints()
-        : encodeURIComponent(this.center ?? this.query)
+      this.isImplicit() ? this.parseWayPoints() : ""
+    }${
+      this.center || this.query ?
+      `center=${encodeURIComponent(this.center ?? this.query)}` :
+      ""
     }`;
   }
 
