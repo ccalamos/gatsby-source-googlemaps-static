@@ -34,6 +34,6 @@ decls
 examples
 *.ts
 .github
-jest.config.js
-.eslintrc.js
+*.config.js
+.*lint*.js
 *.md
