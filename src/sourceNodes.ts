@@ -60,10 +60,10 @@ export default async function sourceNodes(
   pluginArgs: NodePluginArgs,
   config: ConfigOptions,
 ): Promise<void> {
-  if (!config.key)
+  if (config.key)
     throw new Error("Must provide an API key for Google Maps Static.");
 
-  return (config.maps ?? [config]).forEach(
+  return await ((config.maps ?? [config]).forEach(
     async (map) => await processMap(pluginArgs, { ...config, ...map }),
-  );
+  ));
 }
