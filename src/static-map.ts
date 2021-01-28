@@ -51,7 +51,7 @@ class StaticMap
     this.mapType = options.mapType;
     this.mapID = options.mapID;
     this.query = options.query;
-    this.url = this.generateMapUrl();
+    this.url = this.getPublicSearchURL();
     this.file = new ImageFile(cache, this.getImageJSON());
   }
 
@@ -89,9 +89,13 @@ class StaticMap
     return arr ? !arr.length : true;
   }
 
+  private isCords(): boolean {
+    return !this.query && RegExp(/^[^a-zA-Z]+$/).test(this.center);
+  }
+
   private getImageJSON(): ImageFileOptions {
     return {
-      baseUrl: this.url,
+      baseUrl: this.generateMapUrl(),
       clientID: this.clientID ?? "",
       format: this.format,
       hasSecret: this.hasSecret ?? false,
@@ -120,11 +124,17 @@ class StaticMap
   private generateMapUrl(): string {
     return `https://www.google.com/maps/api/staticmap?${
       this.isImplicit() ? this.parseWayPoints() : ""
-    }${
-      this.center || this.query
-        ? `center=${encodeURIComponent(this.center ?? this.query)}`
-        : ""
-    }`;
+    }${this.center ? `center=${encodeURIComponent(this.center)}` : ""}`;
+  }
+
+  private getPublicSearchURL(): string {
+    const URLBuilder: [dir: string, action: string] = this.isImplicit()
+      ? ["dir/", this.parseWayPoints()]
+      : this.isCords()
+      ? ["@", `map_action=map&center=${encodeURIComponent(this.center)}`]
+      : ["search/", encodeURIComponent(this.query ?? this.center)];
+
+    return `https://www.google.com/maps/${URLBuilder[0]}?api=1&${URLBuilder[1]}`;
   }
 
   private parseWayPoints(): string {

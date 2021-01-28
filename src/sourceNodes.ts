@@ -33,7 +33,6 @@ const processNodes = async (
     },
   };
   const node = Object.assign({}, datum, nodeMeta);
-  console.log("HERE!");
   await createNode(node);
 };
 
