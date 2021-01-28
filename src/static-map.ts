@@ -132,7 +132,7 @@ class StaticMap
       ? ["dir/", this.parseWayPoints()]
       : this.isCords()
       ? ["@", `map_action=map&center=${encodeURIComponent(this.center)}`]
-      : ["search/", encodeURIComponent(this.query ?? this.center)];
+      : ["search/", `query=${encodeURIComponent(this.query ?? this.center)}`];
 
     return `https://www.google.com/maps/${URLBuilder[0]}?api=1&${URLBuilder[1]}`;
   }
