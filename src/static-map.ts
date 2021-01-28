@@ -25,7 +25,7 @@ class StaticMap
   private paths?: Path[];
   private markers?: Marker[];
   private styles?: Style[];
-  private visible?: String[];
+  private visible?: Stringable[];
 
   public constructor(
     options: ConfigOptions,
@@ -120,7 +120,7 @@ class StaticMap
     );
   }
 
-  private getWayPoints(): (String | Path | Marker)[] {
+  private getWayPoints(): Stringable[] {
     return [...(this.markers ?? this.visible ?? this.paths ?? [])];
   }
 }

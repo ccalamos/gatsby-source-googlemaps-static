@@ -24,10 +24,10 @@ describe("path", () => {
 
     it("with config options filled", () => {
       const path = new Path({
-        points: ["40.737102,-73.990318", "40.749825,-73.987963"],
         color: "0x00000000",
         fillColor: "0xFFFF0033",
         geoDesic: true,
+        points: ["40.737102,-73.990318", "40.749825,-73.987963"],
         weight: "5",
       });
 

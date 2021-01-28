@@ -12,15 +12,14 @@ abstract class CacheFile {
   private axiosClient: AxiosInstance;
   private cache: NodePluginArgs["cache"];
 
-  private _hash = "";
+  private hash = "";
   private guid = "";
   private cacheId = "";
   private isCached = false;
 
   protected constructor(cache: NodePluginArgs["cache"], hash: string) {
     this.cache = cache;
-    this.hash = hash;
-
+    this.setHash(hash);
     this.checkCache();
 
     this.axiosClient = Axios.create({
@@ -48,7 +47,7 @@ abstract class CacheFile {
     return new Promise((resolve) =>
       resolve(
         this.path
-          ? { path: this.path, hash: this._hash }
+          ? { path: this.path, hash: this.hash }
           : this.downloadFile(url, store, ext),
       ),
     );
@@ -73,8 +72,8 @@ abstract class CacheFile {
       .then((path: string) => this.setCache(path));
   }
 
-  private set hash(newHash: string) {
-    this._hash = newHash;
+  private setHash(newHash: string) {
+    this.hash = newHash;
     this.guid = this.generateGUID();
     this.cacheId = `google-maps-static-cache-${this.guid}`;
   }
@@ -91,7 +90,7 @@ abstract class CacheFile {
   private async setCache(path: string): Promise<CachePath> {
     return this.cache.set(this.cacheId, path).then(() => {
       this.path = path;
-      return { path: this.path, hash: this._hash };
+      return { path: this.path, hash: this.hash };
     });
   }
 
@@ -100,7 +99,7 @@ abstract class CacheFile {
   }
 
   private generateGUID(): string {
-    return crypto.createHash("sha256").update(this._hash).digest("hex");
+    return crypto.createHash("sha256").update(this.hash).digest("hex");
   }
 }
 

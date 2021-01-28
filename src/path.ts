@@ -13,6 +13,10 @@ class Path {
     this.points = options.points.map((point) => encodeURIComponent(point));
   }
 
+  public toString(): string {
+    return this.generateParams();
+  }
+
   private newOption(key: string, value: string | boolean | undefined): string {
     return value ? `${key}:${value}${encodeURIComponent("|")}` : "";
   }
@@ -25,10 +29,6 @@ class Path {
       this.newOption("geodesic", this.geoDesic) +
       this.points.join(encodeURIComponent("|"))
     );
-  }
-
-  public toString(): string {
-    return this.generateParams();
   }
 }
 

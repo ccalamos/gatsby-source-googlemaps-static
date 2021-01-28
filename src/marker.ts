@@ -15,6 +15,10 @@ class Marker {
     }
   }
 
+  public toString(): string {
+    return this.options ?? "";
+  }
+
   private encodeOptions(color?: string, size?: string, label?: string): string {
     return (
       this.generateEncoding("color", color) +
@@ -41,10 +45,6 @@ class Marker {
       : `${encodeURIComponent(key)}:${encodeURIComponent(
           value,
         )}${encodeURIComponent("|")}`;
-  }
-
-  public toString(): string {
-    return this.options ?? "";
   }
 }
 

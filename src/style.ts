@@ -11,6 +11,10 @@ class Style {
     );
   }
 
+  public toString(): string {
+    return this.generateParams();
+  }
+
   private newOption(key: string, value: string | undefined): string {
     return value ? `${key}:${value}${encodeURIComponent("|")}` : "";
   }
@@ -27,10 +31,6 @@ class Style {
       this.newOption("element", this.element) +
       ruleStr
     );
-  }
-
-  public toString(): string {
-    return this.generateParams();
   }
 }
 
