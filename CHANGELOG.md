@@ -5,9 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.4.2 - 1.4.7] - 2020-10-08
+## [2.0.0] - 2021-01-27
 
-Added coverage tests and refactored style & path
+Reduced external dependecies and file size.
+Removed unused and unwanted features.
+Increased build speed.
+
+### Changed
+
+- Removed option to have URI encoded strings
+- Ensured type security
+- Removed use of Babel
+
+### Added
+
+- TSConfig compiling
+
+## [1.4.2 - 1.4.10] - 2020-10-08
+
+Added coverage tests and refactored style & path. Fixed external security vulnerabilities.
+
 
 ### Changed
 

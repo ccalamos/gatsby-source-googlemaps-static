@@ -1,73 +1,51 @@
-import { MarkerOptions } from "gatsby-source-googlemaps-static";
-
 class Marker {
-    private _params: string;
-    private _location: string;
+  private options?: string;
+  private location?: string;
 
-    public constructor(options: MarkerOptions) {
-        this._location = options.location;
-        if (!options.icon) {
-            this._params = this.encodeOptions(
-                options.location,
-                options.color,
-                options.size,
-                options.label
-            );
-        } else {
-            this._params = this.encodeIcon(
-                options.location,
-                options.icon,
-                options.anchor
-            );
-        }
+  public constructor(options: MarkerOptions) {
+    this.location = options.location;
+    if (!options.icon) {
+      this.options = this.encodeOptions(
+        options.color,
+        options.size,
+        options.label,
+      );
+    } else {
+      this.options = this.encodeIcon(options.icon, options.anchor);
     }
+  }
 
-    private encodeOptions(
-        location: string,
-        color: string | undefined,
-        size: string | undefined,
-        label: string | undefined
-    ): string {
-        return (
-            this.generateEncoding("color", color) +
-            this.generateEncoding("size", size) +
-            this.generateEncoding("label", label) +
-            (!color && !size && !label ? "|" : "") +
-            encodeURIComponent(location)
-        );
-    }
+  private encodeOptions(color?: string, size?: string, label?: string): string {
+    return (
+      this.generateEncoding("color", color) +
+      this.generateEncoding("size", size) +
+      this.generateEncoding("label", label) +
+      (!color && !size && !label ? "|" : "") +
+      encodeURIComponent(this.location ?? "")
+    );
+  }
 
-    private encodeIcon(
-        location: string,
-        icon: string,
-        anchor: string | undefined
-    ): string {
-        return (
-            (anchor
-                ? this.generateEncoding("anchor", anchor.replace(/ /g, ""))
-                : "") +
-            `icon:${icon}${encodeURIComponent("|")}` +
-            encodeURIComponent(location)
-        );
-    }
+  private encodeIcon(icon: string, anchor?: string): string {
+    return (
+      (anchor
+        ? this.generateEncoding("anchor", anchor.replace(/ /g, ""))
+        : "") +
+      `icon:${icon}${encodeURIComponent("|")}` +
+      encodeURIComponent(this.location ?? "")
+    );
+  }
 
-    private generateEncoding(key: string, value: string | undefined): string {
-        if (!value) {
-            return "";
-        }
-
-        return `${encodeURIComponent(key)}:${encodeURIComponent(
-            value
+  private generateEncoding(key: string, value: string | undefined): string {
+    return !value
+      ? ""
+      : `${encodeURIComponent(key)}:${encodeURIComponent(
+          value,
         )}${encodeURIComponent("|")}`;
-    }
+  }
 
-    get urlParams(): string {
-        return this._params;
-    }
-
-    get wayPoint(): string {
-        return this._location;
-    }
+  public toString(): string {
+    return this.options ?? "";
+  }
 }
 
 export default Marker;

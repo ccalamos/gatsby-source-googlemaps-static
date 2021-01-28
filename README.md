@@ -93,7 +93,7 @@ module.exports = {
                                 weight: `WEIGHT`,
                             },
                         },
-                    ] || `PREFORMATTED_STYLES_URI_STRING`,
+                    ],
                 markers:
                     [
                         {
@@ -104,7 +104,7 @@ module.exports = {
                             icon: `URI`,
                             anchor: `ANCHOR_POSITION`,
                         },
-                    ] || `PREFORMATTED_MARKERS_URI_STRING`,
+                    ],
                 paths:
                     [
                         {
@@ -112,14 +112,11 @@ module.exports = {
                             color: `COLOR`,
                             fillColor: `FILL_COLOR`,
                             geoDesic: true || false,
-                            points:
-                                [`LATITUDE,LONGITUDE || CITY,REGION`] ||
-                                `PREFORMATTED_LIST_OF_POINTS`,
+                            points: [`LATITUDE,LONGITUDE || CITY,REGION`],
                         },
-                    ] || `PREFORMATTED_PATHS_URI_STRING`,
+                    ],
                 visible:
-                    [`LATITUDE,LONGITUDE || CITY,REGION`] ||
-                    `PREFORMATTED_VISIBLE_URI_STRING`,
+                    [`LATITUDE,LONGITUDE || CITY,REGION`],
                 clientID: `GOOGLE_MAPS_STATIC_CLIENT_ID`,
                 secret: `GOOGLE_MAPS_SECRET_FOR_SIGNED_URLS`,
                 query: `GOOGLE_MAPS_URL_QUERY`,

@@ -1,3 +1,3 @@
 it("Jest is setup correctly", () => {
-    expect(true).toEqual(true);
+  expect(true).toEqual(true);
 });

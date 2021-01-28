@@ -35,3 +35,4 @@ examples
 *.ts
 .github
 !jest.config.js
+*.md

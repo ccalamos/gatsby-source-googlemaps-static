@@ -14,6 +14,6 @@ module.exports = {
         "prettier/@typescript-eslint",
     ],
     rules: {
-        "@typescript-eslint/triple-slash-reference": 0,
+      "@typescript-eslint/ban-types": 0
     },
 };

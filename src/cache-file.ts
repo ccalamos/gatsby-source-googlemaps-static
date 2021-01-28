@@ -6,92 +6,102 @@ import Axios, { AxiosInstance, AxiosResponse } from "axios";
 import createFile from "./create-file";
 
 abstract class CacheFile {
-    protected _path: string | undefined;
-    protected _type = "";
+  protected path?: string;
+  protected type = "";
 
-    private _axiosClient: AxiosInstance;
-    private _cache: NodePluginArgs["cache"];
+  private axiosClient: AxiosInstance;
+  private cache: NodePluginArgs["cache"];
 
-    private _hash = "";
-    private _guid = "";
-    private _cacheId = "";
-    private _isCached = false;
+  private _hash = "";
+  private guid = "";
+  private cacheId = "";
+  private isCached = false;
 
-    protected constructor(cache: NodePluginArgs["cache"], hash: string) {
-        this._cache = cache;
-        this.hash = hash;
+  protected constructor(cache: NodePluginArgs["cache"], hash: string) {
+    this.cache = cache;
+    this.hash = hash;
 
-        this.checkCache();
+    this.checkCache();
 
-        this._axiosClient = Axios.create({
-            method: "GET",
-            responseType: "arraybuffer",
-        });
+    this.axiosClient = Axios.create({
+      method: "GET",
+      responseType: "arraybuffer",
+    });
+  }
+
+  protected async getPath(
+    store: Store,
+    url: string,
+    ext: string,
+  ): Promise<CachePath> {
+    if (!this.isCached) return this.getFile(url, store, ext);
+
+    const path = await this.fetchCache();
+    return { path, hash: this.guid };
+  }
+
+  private async getFile(
+    url: string,
+    store: Store,
+    ext: string,
+  ): Promise<CachePath> {
+    return new Promise((resolve) =>
+      resolve(
+        this.path
+          ? { path: this.path, hash: this._hash }
+          : this.downloadFile(url, store, ext),
+      ),
+    );
+  }
+
+  private async createFile(
+    data: Buffer,
+    store: Store,
+    ext: string,
+  ): Promise<string> {
+    return createFile(data, store, ext, this.guid);
+  }
+
+  private async downloadFile(
+    url: string,
+    store: Store,
+    ext: string,
+  ): Promise<CachePath> {
+    return this.axiosClient
+      .get(url)
+      .then(({ data }: AxiosResponse) => this.createFile(data, store, ext))
+      .then((path: string) => this.setCache(path));
+  }
+
+  private set hash(newHash: string) {
+    this._hash = newHash;
+    this.guid = this.generateGUID();
+    this.cacheId = `google-maps-static-cache-${this.guid}`;
+  }
+
+  private async checkCache(): Promise<void> {
+    const cached = await this.cache.get(this.cacheId);
+    this.isCached = !!cached;
+
+    if (cached) {
+      this.path = cached;
     }
+  }
 
-    protected async getPath(
-        store: Store,
-        url: string,
-        ext: string
-    ): Promise<{ path: string; hash: string }> {
-        if (this._path) return { path: this._path, hash: this._hash };
+  private async setCache(path: string): Promise<CachePath> {
+    return this.cache.set(this.cacheId, path).then(() => {
+      this.path = path;
+      return { path: this.path, hash: this._hash };
+    });
+  }
 
-        if (!this._isCached) {
-            return this.downloadFile(url).then(async (response) => {
-                const newPath: string = await this.createFile(
-                    response.data,
-                    store,
-                    ext
-                );
-                await this.setCache(newPath);
-                this._path = newPath;
+  private async fetchCache(): Promise<string> {
+    return this.cache.get(this.cacheId);
+  }
 
-                return { path: newPath, hash: this._hash };
-            });
-        }
-        const path = await this.fetchCache();
-
-        return { path, hash: this._guid };
-    }
-
-    private async createFile(
-        data: Buffer,
-        store: Store,
-        ext: string
-    ): Promise<string> {
-        return createFile(data, store, ext, this._guid);
-    }
-
-    private async downloadFile(url: string): Promise<AxiosResponse> {
-        return await this._axiosClient.get(url);
-    }
-
-    private set hash(newHash: string) {
-        this._hash = newHash;
-        this._guid = this.generateGUID();
-        this._cacheId = `google-maps-static-cache-${this._guid}`;
-    }
-
-    private async checkCache(): Promise<void> {
-        const cached = await this._cache.get(this._cacheId);
-        this._isCached = !!cached;
-
-        if (cached) {
-            this._path = cached;
-        }
-    }
-
-    private async setCache(path: string): Promise<NodePluginArgs["cache"]> {
-        return await this._cache.set(this._cacheId, path);
-    }
-
-    private async fetchCache(): Promise<string> {
-        return this._cache.get(this._cacheId);
-    }
-
-    private generateGUID(): string {
-        return crypto.createHash("sha256").update(this._hash).digest("hex");
-    }
+  private generateGUID(): string {
+    return crypto.createHash("sha256").update(this._hash).digest("hex");
+  }
 }
 
 export default CacheFile;
