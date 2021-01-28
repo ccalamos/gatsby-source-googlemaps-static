@@ -1,7 +1,7 @@
 {
   "name": "@ccalamos/gatsby-source-googlemaps-static",
   "description": "Gatsby source plugin for Google Maps Static API",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "author": "Cole Calamos <cole@colejcalamos.com>",
   "bugs": {
     "url": "https://github.com/ccalamos/gatsby-source-googlemaps-static/issues"
@@ -54,9 +54,9 @@
   "peerDependencies": {
     "gatsby": "^2.24.69"
   },
-  "main": "dist/gatsby-node.js",
+  "main": "gatsby-node.js",
   "files": [
-    "dist/*.js"
+    "*.js"
   ],
   "types": "index.d.ts",
   "engines": {
