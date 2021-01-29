@@ -22,12 +22,16 @@ class ImageFile extends CacheFile {
     this.useSignature = options.hasSecret;
     delete options["baseUrl"];
 
-    let appendStr = "";
-
-    appendStr += this.parseArrayParams("markers", options.markers);
-    appendStr += this.parseArrayParams("visible", options.visible);
-    appendStr += this.parseArrayParams("style", options.styles);
-    appendStr += this.parseArrayParams("path", options.paths);
+    const appendStr = `${this.parseArrayParams(
+      "markers",
+      options.markers,
+    )}${this.parseArrayParams(
+      "visible",
+      options.visible,
+    )}${this.parseArrayParams("style", options.styles)}${this.parseArrayParams(
+      "path",
+      options.paths,
+    )}`;
 
     this.options = this.generateParams(options, "", appendStr);
     this.extension = `.${options.format}`;
