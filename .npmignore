@@ -38,3 +38,6 @@ examples
 .*lint*.js
 *.md
 *.json
+.prettier*
+.nvmrc
+.eslint*
