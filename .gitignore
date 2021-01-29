@@ -10,3 +10,4 @@ coverage/
 .idea
 dist/
 dist
+.DS_Store

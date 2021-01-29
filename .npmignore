@@ -37,3 +37,4 @@ examples
 *.config.js
 .*lint*.js
 *.md
+*.json
