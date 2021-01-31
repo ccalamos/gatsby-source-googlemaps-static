@@ -1,7 +1,6 @@
 import { Store } from "gatsby";
-
-import fs from "fs-extra";
 import path from "path";
+import { ensureWriteFile } from "./helpers";
 
 const CACHE_DIR = `.cache`;
 const FS_PLUGIN_DIR = `gatsby-source-googlemaps-static`;
@@ -15,7 +14,7 @@ const createFilePath = (
 };
 
 export default async (
-  data: Buffer,
+  data: ArrayBuffer,
   store: Store,
   ext: string,
   id: string,
@@ -27,15 +26,8 @@ export default async (
   );
 
   const hash = `hash-${id}`;
-
-  await fs.ensureDir(pluginCacheDir);
-  await fs.ensureDir(path.join(pluginCacheDir, hash));
-
   const dir: string = path.join(pluginCacheDir, hash);
+  const filename: string = createFilePath(dir, "google-maps-static", `${ext}`);
 
-  const filename = createFilePath(dir, "google-maps-static", `${ext}`);
-
-  await fs.writeFile(filename, data);
-
-  return filename;
+  return ensureWriteFile(dir, filename, data);
 };

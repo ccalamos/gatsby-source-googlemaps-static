@@ -1,10 +1,12 @@
 import ImageFile from "../image-file";
 import { GatsbyCache, NodePluginArgs, Store } from "gatsby";
-import { mocked } from "ts-jest/utils";
-import mockAxios, { AxiosResponse } from "axios";
-import fsExtra from "fs-extra";
+import fs from "fs";
+import fetch from "node-fetch";
 
-jest.mock("fs-extra");
+jest.mock("fs");
+jest.mock("node-fetch", () => jest.fn());
+
+const { Response } = jest.requireActual("node-fetch");
 
 const state = {
   program: {
@@ -42,15 +44,8 @@ describe("image-file", () => {
     };
 
     it("with all params", async () => {
-      const axiosResponse: AxiosResponse = {
-        config: {},
-        data: Buffer.from("jest-coverage-testing", "utf8"),
-        headers: {},
-        status: 200,
-        statusText: "OK",
-      };
-
-      jest.spyOn(fsExtra, "writeFile");
+      jest.spyOn(fs, "writeFileSync");
+      jest.spyOn(fs, "mkdirSync");
 
       params = {
         client: "test-client",
@@ -61,16 +56,16 @@ describe("image-file", () => {
         style: ["test-style"],
         visible: ["test-visible"],
       };
-      mocked(mockAxios.get).mockImplementationOnce(() =>
-        Promise.resolve(axiosResponse),
+      (fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce(
+        new Response("jest-coverage-testing"),
       );
 
       const imageFile = new ImageFile(cache, params);
 
       const result = await imageFile.getHref(store, "", "");
 
-      expect(mockAxios.get).toHaveBeenCalledTimes(1);
-      expect(fsExtra.writeFile).toHaveBeenCalled();
+      expect(fs.writeFileSync).toHaveBeenCalled();
+      expect(fs.mkdirSync).toHaveBeenCalled();
 
       expect(result.hash).toMatch(/client=test-client&/);
       expect(result.hash).toMatch(/format=test-format&/);

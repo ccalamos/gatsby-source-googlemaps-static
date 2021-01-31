@@ -1,7 +1,7 @@
 import { Store, NodePluginArgs } from "gatsby";
 
 import crypto from "crypto";
-import Axios, { AxiosInstance, AxiosResponse } from "axios";
+import fetch, { Response } from "node-fetch";
 
 import createFile from "./create-file";
 
@@ -9,7 +9,6 @@ abstract class CacheFile {
   protected path?: string;
   protected type = "";
 
-  private axiosClient: AxiosInstance;
   private cache: NodePluginArgs["cache"];
 
   private hash = "";
@@ -21,11 +20,6 @@ abstract class CacheFile {
     this.cache = cache;
     this.setHash(hash);
     this.checkCache();
-
-    this.axiosClient = Axios.create({
-      method: "GET",
-      responseType: "arraybuffer",
-    });
   }
 
   protected async getPath(
@@ -54,7 +48,7 @@ abstract class CacheFile {
   }
 
   private async createFile(
-    data: Buffer,
+    data: ArrayBuffer,
     store: Store,
     ext: string,
   ): Promise<string> {
@@ -66,9 +60,9 @@ abstract class CacheFile {
     store: Store,
     ext: string,
   ): Promise<CachePath> {
-    return this.axiosClient
-      .get(url)
-      .then(({ data }: AxiosResponse) => this.createFile(data, store, ext))
+    return fetch(url)
+      .then((data: Response) => data.arrayBuffer())
+      .then((buffer: ArrayBuffer) => this.createFile(buffer, store, ext))
       .then((path: string) => this.setCache(path));
   }
 

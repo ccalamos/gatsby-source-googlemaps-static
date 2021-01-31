@@ -1,9 +1,7 @@
 import { Store, NodePluginArgs } from "gatsby";
-
-import queryString from "query-string";
-
 import CacheFile from "./cache-file";
 import signUrl from "./google-sign-url";
+import { stringify } from "./helpers";
 
 class ImageFile extends CacheFile {
   private baseURL?: string;
@@ -16,7 +14,7 @@ class ImageFile extends CacheFile {
     cache: NodePluginArgs["cache"],
     options: ImageFileOptions,
   ) {
-    super(cache, queryString.stringify(options));
+    super(cache, stringify(options));
 
     this.baseURL = options.baseUrl;
     this.useSignature = options.hasSecret;
@@ -72,20 +70,9 @@ class ImageFile extends CacheFile {
   ): string {
     return (
       (prependStr ? `${prependStr}&` : "") +
-      this.stringify(options) +
+      stringify(options) +
       (appendStr ? `&${appendStr}` : "")
     );
-  }
-
-  private stringify(
-    options: Partial<ImageFileOptions> & { key?: string; client?: string },
-  ) {
-    Object.keys(options).forEach(
-      (key) =>
-        (typeof options[key] !== "string" || !options[key]) &&
-        delete options[key],
-    );
-    return queryString.stringify(options);
   }
 
   private parseArrayParams(type: string, options?: string[]): string {
