@@ -1,8 +1,7 @@
 import { Store, NodePluginArgs } from "gatsby";
 
 import crypto from "crypto";
-import fetch, { Response } from "node-fetch";
-
+import { fetch } from "./helpers";
 import createFile from "./create-file";
 
 abstract class CacheFile {
@@ -61,7 +60,6 @@ abstract class CacheFile {
     ext: string,
   ): Promise<CachePath> {
     return fetch(url)
-      .then((data: Response) => data.arrayBuffer())
       .then((buffer: ArrayBuffer) => this.createFile(buffer, store, ext))
       .then((path: string) => this.setCache(path));
   }

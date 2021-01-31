@@ -1,4 +1,7 @@
+import https from "https";
 import fs from "fs";
+
+import { IncomingMessage } from "http";
 
 export function strictEncode(string: string): string {
   return encodeURIComponent(string).replace(
@@ -16,6 +19,21 @@ export function stringify(
       (key) => strictEncode(key) + "=" + strictEncode(options[key] as string),
     )
     .join("&");
+}
+
+export function responseHandler(
+  response: IncomingMessage,
+  callback: (value: ArrayBuffer | PromiseLike<ArrayBuffer>) => void,
+): void {
+  const data: Uint8Array[] = [];
+  response.on("data", (chunk) => data.push(chunk));
+  response.on("end", () => callback(Buffer.concat(data)));
+}
+
+export function fetch(url: string): Promise<ArrayBuffer> {
+  return new Promise((resolve) => {
+    https.get(url, (response) => responseHandler(response, resolve));
+  });
 }
 
 export function ensureFilePath(path: string): void {

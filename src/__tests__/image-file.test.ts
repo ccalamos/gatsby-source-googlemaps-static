@@ -1,12 +1,10 @@
 import ImageFile from "../image-file";
 import { GatsbyCache, NodePluginArgs, Store } from "gatsby";
+
+import * as helpers from "../helpers";
 import fs from "fs";
-import fetch from "node-fetch";
 
 jest.mock("fs");
-jest.mock("node-fetch", () => jest.fn());
-
-const { Response } = jest.requireActual("node-fetch");
 
 const state = {
   program: {
@@ -46,6 +44,7 @@ describe("image-file", () => {
     it("with all params", async () => {
       jest.spyOn(fs, "writeFileSync");
       jest.spyOn(fs, "mkdirSync");
+      const mockFetch = jest.spyOn(helpers, "fetch");
 
       params = {
         client: "test-client",
@@ -56,9 +55,7 @@ describe("image-file", () => {
         style: ["test-style"],
         visible: ["test-visible"],
       };
-      (fetch as jest.MockedFunction<typeof fetch>).mockResolvedValueOnce(
-        new Response("jest-coverage-testing"),
-      );
+      mockFetch.mockResolvedValueOnce(Buffer.from("jest-coverage-testing"));
 
       const imageFile = new ImageFile(cache, params);
 
