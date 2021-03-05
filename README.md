@@ -355,10 +355,7 @@ query StaticMapQuery {
     staticMap {
         childFile {
             childImageSharp {
-                fluid {
-                    # or fixed
-                    ...GatsbyImageSharpFluid
-                }
+              gatsbyImageData(layout: FIXED # or FLUID)
             }
         }
     }
@@ -390,10 +387,7 @@ query StaticMapQuery {
             node {
                 childFile {
                     childImageSharp {
-                        fluid {
-                            # or fixed
-                            ...GatsbyImageSharpFluid
-                        }
+                      gatsbyImageData(layout: FIXED # or FLUID)
                     }
                 }
             }
@@ -420,4 +414,4 @@ query StaticMapGifQuery {
 
 
 
-See the [Image Sharp Plugin](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-image) or the GraphiQL UI for info on all returned fields.
+See the [Image Sharp Plugin](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-image) or the GraphiQL UI for info on all returned fields.

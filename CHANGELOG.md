@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0] - 2021-03-05
+
+Upgraded to Gatsby 3.0!
+
 ## [2.0.0] - 2021-01-27
 
 Reduced external dependecies and file size.
