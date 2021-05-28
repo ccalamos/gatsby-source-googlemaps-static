@@ -1,7 +1,7 @@
 {
   "name": "@ccalamos/gatsby-source-googlemaps-static",
   "description": "Gatsby source plugin for Google Maps Static API",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "author": "Cole Calamos <cole@colejcalamos.com>",
   "bugs": {
     "url": "https://github.com/ccalamos/gatsby-source-googlemaps-static/issues"
@@ -42,7 +42,7 @@
     "test:coverage": "jest --collect-coverage",
     "format": "prettier --write \"{,!(node_modules)/**/}*.ts\"",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "prepublishOnly": "cross-env NODE_ENV=production yarn run clean; cross-env NODE_ENV=production yarn run build",
+    "prepublishOnly": "cross-env NODE_ENV=production yarn run build",
     "test": "jest",
     "typecheck": "tsc -p ./tsconfig.json --noEmit",
     "watch": "tsc -p ./tsconfig.json -w"
